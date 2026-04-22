@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .card img{
+            height: 180px;
+            object-fit:cover;
+        }
+        .card{
+            height:100%;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-info navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <div class="navbar-nav">
+                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#">Training</a>
+                    <a class="nav-link" href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid bg-info text-white text-center" style="background-color: #aaa;">
+        <div class="container">
+            <h1 class="display-1">Welcome to the Dojo</h1>
+            <p class="lead">A guiding light for the less enlightened...</p>
+        </div>
+    </div>
+    <div class="container text-muted mt-4" >
+        <!-- cards -->
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="img\nodejs.png" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">Node.js Training</h3>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, eveniet unde quibusdam porro sapiente dicta iure distinctio illo pariatur ipsa, beatae cumque! Asperiores mollitia dignissimos aliquam laborum quaerat.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="img/mongo.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">Mongo Training</h3>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, eveniet unde quibusdam porro sapiente dicta iure distinctio illo pariatur ipsa, beatae cumque! Asperiores mollitia dignissimos aliquam laborum quaerat.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="img/React.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">React Training</h3>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, eveniet unde quibusdam porro sapiente dicta iure distinctio illo pariatur ipsa, beatae cumque! Asperiores mollitia dignissimos aliquam laborum quaerat.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="img/webpac.png" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">Webpack Training</h3>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, eveniet unde quibusdam porro sapiente dicta iure distinctio illo pariatur ipsa, beatae cumque! Asperiores mollitia dignissimos aliquam laborum quaerat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="display-4 text-center py-5 my-4">Meet the Speakers </h2>
+
+        <nav class="nav justify-content-center nav-pills flex-column flex-md-row">
+            <a class="nav-link active" href="#ninja" data-bs-toggle="tab">The Net Ninja</a>
+            <a class="nav-link" href="#wizard" data-bs-toggle="tab">The Web Wizard</a>
+            <a class="nav-link" href="#captain" data-bs-toggle="tab">Captain Code</a>
+            <a class="nav-link" href="#avenger" data-bs-toggle="tab">Angular Avenger</a>
+        </nav>
+
+        <div class="tab-content py-4">
+            <div class="tab-pane fade show active" id="ninja">
+                <h3>The Net Ninja</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae vel sunt in dolores dolor iusto, dignissimos doloremque, quas deserunt maiores iste! Culpa sequi error consequuntur eius, earum dolorem aut excepturi eum. Ipsum autem, incidunt perspiciatis aliquid, quam iusto quaerat saepe qui vero et maxime dignissimos provident. Quas nostrum sapiente delectus?</p>
+            </div>
+        
+            <div class="tab-pane fade" id="wizard">
+                <h3>The Web Wizard</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem fuga similique cupiditate voluptates voluptas aliquam. Eaque deserunt necessitatibus incidunt nesciunt quas ipsam soluta iusto quae quasi. Magnam odit neque delectus libero praesentium? Quam, ex unde esse laudantium facere atque illo, iste, aut sequi reiciendis mollitia quas voluptas sint aspernatur beatae!</p>
+            </div>
+            <div class="tab-pane fade" id="captain">
+                <h3>Captain Code</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quos accusantium laudantium doloremque. Voluptatibus consectetur ducimus modi repudiandae? Suscipit recusandae eveniet maxime placeat quaerat totam expedita, molestias corrupti ratione illo quam quis necessitatibus quas cumque aut soluta ab sed id sit. Reiciendis, aut cum veritatis numquam tempora tempore quis similique!</p>
+            </div>
+            <div class="tab-pane fade" id="avenger">
+                <h3>Angular Avenger</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum dignissimos aliquam quo natus quos ea commodi quibusdam temporibus, aliquid distinctio? Voluptates iste quis quas velit quasi minima, possimus quisquam odio amet ipsa consectetur iusto voluptas reiciendis. Iusto ipsam magnam mollitia minima voluptatibus quam, laudantium, temporibus quisquam, repellat esse nemo nesciunt.</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+  </body>
+</html>
