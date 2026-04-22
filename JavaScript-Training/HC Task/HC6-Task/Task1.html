@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Original Guitars</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * { 
+        margin: 0;
+        padding: 0; 
+        box-sizing: border-box; 
+    }
+    body { 
+        font-family: Arial, sans-serif; 
+        background: #fff; 
+        padding:20px 20px 20px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 30px;
+    }
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #e63946;
+      font-style: italic;
+    }
+    .navbar nav a {
+      text-decoration: none;
+      color: #000;
+      margin-left: 24px;
+      font-size: 13px;
+    }
+    .hero {
+      background: #f9f9f9;
+      text-align: center;
+      padding: 40px 20px 30px;
+      border-bottom: 1px solid #eee;
+    }
+    .hero h1 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .hero-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+    .hero-form input {
+      padding: 8px 14px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      width: 220px;
+      outline: none;
+    }
+    .hero-form button {
+      background: #f4a300;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .features {
+      padding: 30px 40px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .feature-item i {
+      font-size: 28px;
+      color: #f4a300;
+      min-width: 36px;
+      margin-top: 2px;
+    }
+    .feature-item h3 {
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 4px;
+    }
+    .feature-item p {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .video-section {
+      display: flex;
+      justify-content: center;
+      padding: 10px 40px 30px;
+    }
+    .video-section iframe {
+      width: 380px;
+      height: 210px;
+      border: none;
+    }
+    .pricing {
+      display: flex;
+      border: 2px solid black;
+    }
+    .price-col {
+      flex: 1;
+      text-align: center;
+      padding: 20px 16px;
+      border-right: 2px solid black;
+    }
+    .price-col:last-child { 
+        border-right: none; 
+    }
+    .price-col h3 {
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 8px;
+    }
+    .price-col .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .price-col p {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    .btn-select {
+      background: #f4a300;
+      color: #fff;
+      border: none;
+      padding: 6px 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">Original Guitars</div>
+    <nav>
+      <a href="#">Pricing</a>
+      <a href="#">How it Works</a>
+      <a href="#">Features</a>
+    </nav>
+  </div>
+  <div class="hero">
+    <h1>Great quality, awesome music</h1>
+    <div class="hero-form">
+      <input type="email" placeholder="Enter your email address" />
+      <button>GET STARTED</button>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feature-item">
+      <i class="fa-solid fa-fire"></i>
+      <div>
+        <h3>Premium Materials</h3>
+        <p>Our guitars are made from the finest materials which ensure that they are long lasting. With the best craftsmen, each guitar is handcrafted.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <i class="fa-solid fa-truck"></i>
+      <div>
+        <h3>Quick Shipping</h3>
+        <p>Place an order and we will ship with in 2 days. If you are not satisfied, we provide free returns.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <i class="fa-solid fa-battery-full"></i>
+      <div>
+        <h3>Assured Quality</h3>
+        <p>Quality for every purchase is assured. Each product is tested thoroughly before shipping. If you are not satisfied, we provide free returns.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-section">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+  </div>
+
+  <div class="pricing">
+    <div class="price-col">
+      <h3>SPANISH GUITAR</h3>
+      <div class="price">$200</div>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum dolor.</p>
+      <p>Lorem ipsum.</p>
+      <button class="btn-select">SELECT</button>
+    </div>
+    <div class="price-col">
+      <h3>BASS GUITAR</h3>
+      <div class="price">$180</div>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum dolor.</p>
+      <p>Lorem ipsum.</p>
+      <button class="btn-select">SELECT</button>
+    </div>
+    <div class="price-col">
+      <h3>ELECTRIC GUITAR</h3>
+      <div class="price">$300</div>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum.</p>
+      <p>Lorem ipsum dolor.</p>
+      <p>Lorem ipsum.</p>
+      <button class="btn-select">SELECT</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sample Survey Form</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2d2d8e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .form-wrapper {
+      background-color: #1e1e6e;
+      width: 100%;
+      max-width: 620px;
+      padding: 30px 40px 40px;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      font-size: 13px;
+      color: #ccc;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color:white;
+    }
+    label span {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 16px;
+      background-color: #2a2a7a;
+      border: 1px solid #4a4aaa;
+      color: white;
+      font-size: 13px;
+      outline: none;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    select option { background: #2a2a7a; }
+
+    .radio-group, .checkbox-group {
+      margin-bottom: 16px;
+    }
+    .radio-group label,
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .question-label {
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: rgb(7, 147, 7);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-wrapper">
+    <h1>Sample Survey Form</h1>
+    <p class="subtitle">Thank you for taking the time to fill the survey</p>
+
+    <label>Name</label>
+    <input type="text" placeholder="Enter your name" />
+
+    <label>Email <span>(optional)</span></label>
+    <input type="email" placeholder="Enter your Email" />
+
+    <label>Age <span>(optional)</span></label>
+    <input type="number" placeholder="Age" />
+
+    <label>Which option best describes your current role?</label>
+    <select>
+      <option>Select current role</option>
+      <option>Student</option>
+      <option>Developer</option>
+      <option>Designer</option>
+      <option>Other</option>
+    </select>
+
+    <p class="question-label">How would you rate your coding skills?</p>
+    <div class="radio-group">
+      <label><input type="radio" name="skills" /> Good</label>
+      <label><input type="radio" name="skills" /> Average</label>
+      <label><input type="radio" name="skills" /> Poor</label>
+    </div>
+
+    <p class="question-label">What would you like to learn? <span style="font-size:11px;color:#aaa;">(Check all that apply)</span></p>
+    <div class="checkbox-group">
+      <label><input type="checkbox" /> Front-end Development</label>
+      <label><input type="checkbox" /> Back-end Development</label>
+      <label><input type="checkbox" /> Full Stack Development</label>
+    </div>
+
+    <label>Any comments or suggestions?</label>
+    <textarea placeholder="Enter your comment here..."></textarea>
+
+    <button class="btn-submit">Submit</button>
+  </div>
+</body>
+</html>

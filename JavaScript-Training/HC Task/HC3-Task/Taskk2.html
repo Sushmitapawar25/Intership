@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job application Form</title>
+    <style>
+        .container{
+            border:2px solid purple;
+            padding: 10px;
+            background-color:pink;
+            /* margin:50px; */
+            margin-left: 300px;
+            margin-right: 300px;
+
+        }
+        h2{
+            text-align: center;
+            color: blue;
+        }
+        .btn1{
+            display: inline-block;
+            margin-left:40%;
+        }
+        .btn2{
+            margin-right: 40%;
+        }
+        .l1{
+            display: inline-block;
+            width:200px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h2>Job Application Form</h2>
+    <div class="container">
+        <form>
+            <label class="l1">FIRSTNAME</label>
+            <input type="text" maxlength="10" pattern="[a-zA-Z]"> (max 10 characters a-z and A-Z)<br><br>
+            <label class="l1">LAST NAME</label>
+            <input type="text" maxlength="10" pattern="[a-zA-Z]"> (max 10 characters a-z and A-Z)<br><br>
+            <lable class="l1">DATE OF BIRTH</lable>
+            <select>
+                <option>Day:</option>
+            </select>
+            <select>
+                <option>Month:</option>
+            </select>
+            <select>
+                <option>Year:</option>
+            </select><br><br>
+            <label class="l1">MOBILE NUMBER</label>
+            <input type="number" maxlength="10"> (10 digit number)<br><br>
+            <label class="l1">GENDER</label>
+                Male<input type="radio" name="gen">
+                Female<input type="radio" name="gen"><br><br>
+            <label class="l1">ADDRESS</label>
+            <textarea rows="4" cols="30"></textarea><br><br>
+            <label class="l1">STATE</label>
+            <select>
+                <option>Select the State</option>
+                <option>Maharashtra</option>
+                <option>Goa</option>
+                <option>Mp</option>
+                <option>UP</option>
+            </select><br><br>
+            <label class="l1">Technical Skills</label>
+                Javascript<input type="checkbox">&nbsp;
+                NodeJS<input type="checkbox">&nbsp;
+                React<input type="checkbox">&nbsp;
+                Angular<input type="checkbox">&nbsp;
+                MySQL<input type="checkbox">&nbsp;
+                MongoDB<input type="checkbox"><br><br>
+            <label class="l1">EDUCATIONAL DETAIL</label>
+            <table class="l1">
+                <tr>
+                    <th>SL No.</th>
+                    <th>Examination</th>
+                    <th>Board</th>
+                    <th>Percentage</th>
+                    <th>Year of Passing</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Class X</td>
+                    <td><input type="text"></td>
+                    <td><input type="number"></td>
+                    <td><input type="number"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Class XII</td>
+                    <td><input type="text"></td>
+                    <td><input type="number"></td>
+                    <td><input type="number"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Graduation</td>
+                    <td><input type="text"></td>
+                    <td><input type="number"></td>
+                    <td><input type="number"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Post Graduation</td>
+                    <td><input type="text"></td>
+                    <td><input type="number"></td>
+                    <td><input type="number"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(10 char max) </label></td>
+                    <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(upto 2 decimal) </label></td>
+                    <td></td>
+                </tr>
+            </table>
+            <br><br>
+
+            <label class="l1">EXPERIENCE</label>
+                Fresher<input type="radio"name="exp">
+                &lt;1 year<input type="radio" name="exp">
+                1-3 years<input type="radio" name="exp">
+                3+ years<input type="radio" name="exp"><br><br>
+
+            <button type="submit" class="btn1">Submit</button>
+            <button type="reset" class="btn2">Reset</button>
+        </form>
+
+    </div>
+</body>
+
+</html>

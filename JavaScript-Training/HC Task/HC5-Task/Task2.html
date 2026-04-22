@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Restaurant</title>
+    <style>
+        *{
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color:white;
+            min-height: 100vh;
+        }
+        .top-bar{
+            padding: 20px 50px 6px;
+        }
+        .logo{
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 22px;
+            color:white;
+        }
+        .navbar{
+            display: flex;
+            justify-content: flex-end;
+            padding:8px 50px 20px;
+            gap:30px;
+        }
+        .navbar a{
+            text-decoration: none;
+            font-size: 14px;
+            color:white;
+        }
+        .navbar a.active{
+            color:yellow;
+            font-weight: bold;
+        }
+        .hero{
+            text-align: center;
+            padding: 30px 40px 10px;
+        }
+        .hero h1{
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 30px;
+            font-weight: normal;
+            color: white;
+            margin-bottom: 14px;
+        }
+        .hero p{
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        .columns{
+            display: flex;
+            justify-content: center;
+            padding: 20px 60px;
+            text-align: center;
+        }
+        .col {
+            flex: 1;
+            padding: 0 20px;
+        }
+        .col h3{
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 20px;
+            font-weight: normal;
+            color: white;
+            margin-bottom: 14px;
+        }
+        .col p {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 12.5px;
+            color: #bbb;
+            line-height: 1.7;
+        }
+        .enter-section {
+            text-align: center;
+            margin-top: 36px;
+        }
+        .btn-enter {
+            background-color: #e8c84a;
+            color: black;
+            border: none;
+            padding: 10px 30px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">My Restaurant</div>
+    </div>
+
+    <div class="navbar">
+        <a href="#" class="active">Home</a>
+        <a href="#" class="active">About</a>
+        <a href="#"class="active">Menu</a>
+        <a href="#"class="active">Locations</a>
+        <a href="#"class="active">Contact Us</a>
+    </div>
+
+    <div class="hero">
+        <h1>Amazing and authentic food, only for you</h1>
+        <p>Wide variety of veg and non-veg menu</p>
+    </div>
+    
+    <div class="columns">
+        <div class="col">
+            <h3>Continental</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodi aut vero sint itaque dignissimos, fugiat ipsum laboriosam</p>
+        </div>
+        <div class="col">
+            <h3>Chinese</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodi aut vero sint itaque dignissimos, fugiat ipsum laboriosam</p>
+        </div>
+        <div class="col">
+            <h3>Indian</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodi aut vero sint itaque dignissimos, fugiat ipsum laboriosam</p>
+        </div>
+    </div>
+
+    <div class="enter-section">
+        <button class="btn-enter">ENTER</button>
+    </div>
+</body>
+</html>
