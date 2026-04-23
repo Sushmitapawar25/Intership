@@ -1,2 +1,2 @@
-# Intership
+# Internship
 Frontend internship task 
