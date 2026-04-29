@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Management</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+            margin-top:20px;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:5px;
+        }
+
+        input,select{
+            margin:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Store Management</h2>
+
+<div id="buttons"></div>
+
+<div id="display"></div>
+
+<script>
+
+    let productMaster = [
+        {prod:'Maggi',category:'Food',buyPrice:20,sellPrice:25},
+        {prod:'Dove',category:'Soap',buyPrice:40,sellPrice:50},
+        {prod:'Clinic Plus',category:'Shampoo',buyPrice:90,sellPrice:110}
+    ];
+
+    let purchaseMaster = [
+        {prod:'Maggi',qty:5},
+        {prod:'Dove',qty:3}
+    ];
+
+    showButtons();
+
+    // BUTTONS
+
+    function showButtons(){
+
+        let html = "";
+
+        html += "<button class='btn1' onclick='showProducts()'>Product Master</button>";
+
+        html += "<button class='btn1' onclick='showProductForm()'>New Product</button>";
+
+        html += "<button class='btn1' onclick='showPurchases()'>Purchase Master</button>";
+
+        html += "<button class='btn1' onclick='showPurchaseForm()'>New Purchase</button>";
+
+        document.getElementById("buttons").innerHTML = html;
+    }
+
+    // PRODUCT MASTER
+
+    function showProducts(){
+
+        let arr = productMaster.map(function(p){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+p.prod+"</td>";
+
+            str += "<td class='td1'>"+p.category+"</td>";
+
+            str += "<td class='td1'>"+p.buyPrice+"</td>";
+
+            str += "<td class='td1'>"+p.sellPrice+"</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Product</th>";
+
+        header += "<th class='th1'>Category</th>";
+
+        header += "<th class='th1'>Buy Price</th>";
+
+        header += "<th class='th1'>Sell Price</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("display").innerHTML = html;
+    }
+
+    // NEW PRODUCT FORM
+
+    function showProductForm(){
+
+        let html = "";
+
+        html += "Product Name : ";
+        html += "<input type='text' id='txtProd'><br>";
+
+        html += "Category : ";
+
+        html += "<select id='ddCategory'>";
+
+        html += "<option>Food</option>";
+        html += "<option>Soap</option>";
+        html += "<option>Shampoo</option>";
+        html += "<option>Toothpaste</option>";
+
+        html += "</select><br>";
+
+        html += "Buy Price : ";
+        html += "<input type='text' id='txtBuy'><br>";
+
+        html += "Sell Price : ";
+        html += "<input type='text' id='txtSell'><br>";
+
+        html += "<button class='btn1' onclick='addProduct()'>Add Product</button>";
+
+        document.getElementById("display").innerHTML = html;
+    }
+
+    // ADD PRODUCT
+
+    function addProduct(){
+
+        let prod = document.getElementById("txtProd").value;
+
+        let category = document.getElementById("ddCategory").value;
+
+        let buyPrice = document.getElementById("txtBuy").value;
+
+        let sellPrice = document.getElementById("txtSell").value;
+
+        let obj = {
+            prod:prod,
+            category:category,
+            buyPrice:buyPrice,
+            sellPrice:sellPrice
+        };
+
+        productMaster.push(obj);
+
+        showProducts();
+    }
+
+    // PURCHASE MASTER
+
+    function showPurchases(){
+
+        let arr = purchaseMaster.map(function(p){
+
+            let index = productMaster.findIndex(function(pr){
+
+                return pr.prod == p.prod;
+
+            });
+
+            let price = productMaster[index].sellPrice;
+
+            let value = price * p.qty;
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+p.prod+"</td>";
+
+            str += "<td class='td1'>"+p.qty+"</td>";
+
+            str += "<td class='td1'>"+price+"</td>";
+
+            str += "<td class='td1'>"+value+"</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Product</th>";
+
+        header += "<th class='th1'>Quantity</th>";
+
+        header += "<th class='th1'>Price</th>";
+
+        header += "<th class='th1'>Value</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("display").innerHTML = html;
+    }
+
+    // PURCHASE FORM
+
+    function showPurchaseForm(){
+
+        let options = productMaster.map(function(p){
+
+            return "<option>"+p.prod+"</option>";
+
+        });
+
+        let html = "";
+
+        html += "Product : ";
+
+        html += "<select id='ddProd'>";
+
+        html += options.join("");
+
+        html += "</select><br>";
+
+        html += "Quantity : ";
+        html += "<input type='text' id='txtQty'><br>";
+
+        html += "<button class='btn1' onclick='addPurchase()'>Add Purchase</button>";
+
+        document.getElementById("display").innerHTML = html;
+    }
+
+    // ADD PURCHASE
+
+    function addPurchase(){
+
+        let prod = document.getElementById("ddProd").value;
+
+        let qty = document.getElementById("txtQty").value;
+
+        let obj = {
+            prod:prod,
+            qty:qty
+        };
+
+        purchaseMaster.push(obj);
+
+        showPurchases();
+    }
+
+</script>
+
+</body>
+</html>

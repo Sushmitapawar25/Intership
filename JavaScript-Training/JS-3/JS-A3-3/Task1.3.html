@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .errMsg{
+            background-color: lightpink;
+        }
+    </style>
+</head>
+<body>
+    <!-- Show a form with a text field to enter
+     name and a submit button.When the user enters the name and clicks out of 
+     the text field, show an error message if the length of the name entered 
+     is less than 6 and also diable the submit button -->
+
+     Text 1 :<input type="text" id="txt1" placeholder="Enter the name"
+     onblur="check(this)"><br><br>
+     <div id="d1"></div>
+     <button id="btn1">Submit</button>
+
+     <script>
+        function check(elem){
+            let txtField = document.getElementById("txt1");
+            let txt = txtField.value;
+            if(txt.length < 6){
+                let errDiv = document.getElementById('d1');
+                errDiv.innerHTML = "Name should be atleast 6 chars";
+                errDiv.className = "errMsg";
+                let btn = document.getElementById('btn1');
+                btn.disabled = true;
+            }
+            else{
+                let errDiv = document.getElementById('d1');
+                errDiv.innerHTML = "";
+                errDiv.className = "";
+                let btn = document.getElementById('btn1');
+                btn.disabled = false;
+            }
+        }
+     </script>
+</body>
+</html>

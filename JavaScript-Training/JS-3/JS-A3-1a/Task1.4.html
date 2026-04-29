@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .head{
+            color: white;
+            background-color:black ;
+            text-align: center;
+        }
+        .btn{
+            color: white;
+            background-color: red;
+        }
+        .btn1:hover{
+            background-color: #f0f8ff;
+            border: 2px solid #0000FF;
+        }
+        table{
+            text-align: center;
+        }
+        .high{
+            background-color: #90ee90;
+        }
+        .low{
+            background-color: #ffb6c1;
+        }
+    </style>
+</head>
+<body>
+    <h3>Students</h3>
+    <table border="black">
+        <thead>
+            <tr class="head">
+                <th>Name</th>
+                <th>Maths</th>
+                <th>Computers</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bob</td>
+                <td class="high">82</td>
+                <td class="high">88</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td>Jack</td>
+                <td class="low">44</td>
+                <td>55</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td class="high">91</td>
+                <td>73</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td>Dave</td>
+                <td>60</td>
+                <td class="high">89</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td>Julia</td>
+                <td>58</td>
+                <td>60</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+            <tr>
+                <td>Steve</td>
+                <td class="low">42</td>
+                <td class="low">47</td>
+                <td><button class="btn">Remove</button></td>
+            </tr>
+        </tbody>
+    </table><br>
+    <button class="btn1">Show Student</button>
+    <button class="btn1">Highlight marks</button>
+    <button class="btn1">Highlight students</button>
+    <button class="btn1">Clear</button>
+</body>
+</html>

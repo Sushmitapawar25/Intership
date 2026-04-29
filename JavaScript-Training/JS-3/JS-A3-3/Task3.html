@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .box{
+            border:2px solid black;
+            width:500px;
+            padding:20px;
+            margin-bottom:30px;
+            background-color:white;
+        }
+
+        input{
+            width:250px;
+            padding:10px;
+            font-size:16px;
+            margin-top:10px;
+        }
+
+        h3{
+            margin:0px;
+            color:darkblue;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- TASK 3.1 -->
+
+    <div class="box">
+
+        <h3>Task 3.1 : Allow only 0 and 1</h3>
+
+        <input type="text"
+        id="txt1"
+        onkeyup="checkBinary()">
+
+    </div>
+
+
+    <!-- TASK 3.2 -->
+
+    <div class="box">
+
+        <h3>Task 3.2 : Do not allow b or B</h3>
+
+        <input type="text"
+        id="txt2"
+        onkeyup="removeB()">
+
+    </div>
+
+
+    <!-- TASK 3.3 -->
+
+    <div class="box">
+
+        <h3>Task 3.3 : No Special Characters</h3>
+
+        <input type="text"
+        id="txt3"
+        onkeyup="removeSpecial()">
+
+    </div>
+
+
+    <!-- TASK 3.4 -->
+
+    <div class="box">
+
+        <h3>Task 3.4 : Allow only digits + - * / .</h3>
+
+        <input type="text"
+        id="txt4"
+        onkeyup="checkCalculator()">
+
+    </div>
+
+
+<script>
+
+    // TASK 3.1
+
+    function checkBinary(){
+
+        let value =
+        document.getElementById("txt1").value;
+
+        let lastChar =
+        value.charAt(value.length-1);
+
+        if(lastChar!='0' && lastChar!='1'){
+
+            value =
+            value.substring(0,value.length-1);
+
+            document.getElementById("txt1").value =
+            value;
+        }
+    }
+
+
+    // TASK 3.2
+
+    function removeB(){
+
+        let value =
+        document.getElementById("txt2").value;
+
+        let lastChar =
+        value.charAt(value.length-1);
+
+        if(lastChar=='b' || lastChar=='B'){
+
+            value =
+            value.substring(0,value.length-1);
+
+            document.getElementById("txt2").value =
+            value;
+        }
+    }
+
+
+    // TASK 3.3
+
+    function removeSpecial(){
+
+        let value =
+        document.getElementById("txt3").value;
+
+        let lastChar =
+        value.charAt(value.length-1);
+
+        let code =
+        lastChar.charCodeAt(0);
+
+        if(
+            !(code>=65 && code<=90) &&
+            !(code>=97 && code<=122) &&
+            !(code>=48 && code<=57)
+        ){
+
+            value =
+            value.substring(0,value.length-1);
+
+            document.getElementById("txt3").value =
+            value;
+        }
+    }
+
+
+    // TASK 3.4
+
+    function checkCalculator(){
+
+        let value =
+        document.getElementById("txt4").value;
+
+        let lastChar =
+        value.charAt(value.length-1);
+
+        let allowed =
+        "0123456789+-*/.";
+
+        if(!allowed.includes(lastChar)){
+
+            value =
+            value.substring(0,value.length-1);
+
+            document.getElementById("txt4").value =
+            value;
+        }
+    }
+
+</script>
+
+</body>
+</html>

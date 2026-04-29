@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .btn1{
+            padding:8px;
+            margin-top:15px;
+        }
+
+        #result{
+            margin-top:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Select Grade</h3>
+
+<!-- TASK 4.1 + TASK 4.2 -->
+
+<input type="radio"
+name="grade"
+id="r1"
+value="A">
+
+Grade A
+
+<br><br>
+
+<input type="radio"
+name="grade"
+id="r2"
+value="B"
+checked>
+
+Grade B
+
+<br><br>
+
+<input type="radio"
+name="grade"
+id="r3"
+value="C">
+
+Grade C
+
+<br><br>
+
+<input type="radio"
+name="grade"
+id="r4"
+value="D">
+
+Grade D
+
+<br><br>
+
+<button class="btn1"
+onclick="showStatus()">
+
+Show Status
+
+</button>
+
+<div id="result"></div>
+
+<script>
+
+    function showStatus(){
+
+        let r1 =
+        document.getElementById("r1").checked;
+
+        let r2 =
+        document.getElementById("r2").checked;
+
+        let r3 =
+        document.getElementById("r3").checked;
+
+        let r4 =
+        document.getElementById("r4").checked;
+
+        let selected = "";
+
+        let radios =
+        document.getElementsByName("grade");
+
+        for(let i=0; i<radios.length; i++){
+
+            if(radios[i].checked)
+
+                selected = radios[i].value;
+        }
+
+        let str = "";
+
+        str += "Grade A : " + r1 + "<br>";
+
+        str += "Grade B : " + r2 + "<br>";
+
+        str += "Grade C : " + r3 + "<br>";
+
+        str += "Grade D : " + r4 + "<br><br>";
+
+        str += "Checked Value : " + selected;
+
+        document.getElementById("result").innerHTML =
+        str;
+    }
+
+</script>
+
+</body>
+</html>

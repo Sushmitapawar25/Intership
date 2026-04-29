@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Given an array of names, a) Show the names in an unordered list -->
+
+    <h2>List of Names</h2>
+    <div id="listNames"></div>
+    <button onclick="showNames()">Show Names</button>
+    <button onclick="hideNames()">Hide Names</button>
+    </br></br>
+
+    <!-- B sort the names in ascending or desending order depending on the button clicked -->
+    <button onclick="sortAsc()">Asending Order</button>
+    <button onclick="sortDesc()">Descending Order</button>
+    <script>
+        const names = ['Steven Price','Anna Matthews','Tim Davids','Julia Burton','Mary James','Ed Johnson'];
+
+        function showNames(){
+            const namesMap = names.map(function(name){
+                return '<li>'+name+'</li>';
+            });
+            let str = '<ul>'+namesMap.join('')+'</ul>';
+            let element = document.getElementById('listNames');
+            element.innerHTML = str;
+        }
+
+        function hideNames(){
+            let element = document.getElementById('listNames');
+            element.innerHTML = '';
+        }
+
+        function sortAsc(){
+            names.sort(sortNamesAsc);
+            showNames();
+        }
+        function sortNamesAsc(name1,name2){
+            return name1.localeCompare(name2);
+        }
+        function sortDesc(){
+            names.sort(sortNameDesc);
+            showNames();
+        }
+        function sortNameDesc(name1, name2){
+            return -1 * name1.localeCompare(name2);
+        }
+    </script>
+</body>
+</html>

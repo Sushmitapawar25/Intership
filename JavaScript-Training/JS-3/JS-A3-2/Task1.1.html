@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <select id="dd01">
+        <option>Select the Course</option>
+        <option value="1">JavaScript</option>
+        <option value="2.">React</option>
+        <option value="3">Angular</option>
+    </select>
+    <select id="dd02">
+        <option>Select the Course</option>
+        <option>JavaScript</option>
+        <option>React</option>
+        <option>Angular</option>
+    </select>
+    <button onclick="display()">Display</button>
+
+    <script>
+        function display(){
+            let dd1 = document.getElementById('dd01');
+            console.log(dd1.value);
+            let dd2 = document.getElementById('dd02');
+            console.log(dd2.value);
+        }
+    </script> -->
+
+    <!-- How to create dropdown in javaScript -->
+
+    <div id="divDD"></div>
+    <button onclick="makeDD()">Make Dropdown</button>
+
+    <script>
+        let empData = [
+            {name:'Steve',empId:'BM222'},
+            {name:'George',empId:'BM405'},
+            {name:'Mary',empId:'CT188'},
+            {name:'Anna',empId:'AK534'},
+            {name:'Jack',empId:'CT029'},
+        ];
+
+        function makeDD(){
+            let div = document.getElementById('divDD');
+            let html = makeDDOptions(empData,'Select Employee');
+            div.innerHTML = html;
+        }
+        function makeDDOptions(arr,valOnTop){
+            const optArr = arr.map(function(opt){
+                return '<option>'+opt.name+'</option>';
+            });
+            let topStr = '<option selected disabled>'+valOnTop+'</option>';
+            let str = '<select>' + optArr.join('')+'</select>';
+            console.log(str);
+            return str; 
+        }
+    </script>
+</body>
+</html>

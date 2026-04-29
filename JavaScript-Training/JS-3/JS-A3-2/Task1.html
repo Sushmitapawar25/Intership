@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="tx1" placeholder="Enter Text" maxlength="6">
+    <button onclick="display()">Display</button>
+    <script>
+        function display(){
+            let txtField = document.getElementById('tx1');
+            console.log(txtField.value);
+            txtField.value = '';
+            txtField.placeholder = 'Get Name';
+            txtField.maxLength = 10;
+            // txtField.disabled = true;
+            // txtField.readOnly = true;
+        }
+
+    </script>
+</body>
+</html>

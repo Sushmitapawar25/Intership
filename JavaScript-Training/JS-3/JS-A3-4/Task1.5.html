@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Define a function that takes a name
+         array of JSON and selectedValue as parameters
+         and returns the html for a radio group. The radio 
+         with selectedValue is checked.
+         Note that the JSON have a txt and value. -->
+
+         <div id="newradios"></div>
+         
+         <script>
+            const radioOptions = [
+                {value:"Slot1",txt:"8AM-11AM"},
+                {value:"Slot2",txt:"11AM-2AM"},
+                {value:"Slot3",txt:"2AM-5AM"},
+                {value:"Slot4",txt:"5AM-8AM"},
+            ];
+            let html = makeRadios("delradio",radioOptions,'');
+            document.getElementById("newradios").innerHTML = html;
+            function makeRadios(name,arr,selectedValue){
+                const arr1 = arr.map(function(item){
+                    let checkedStr = '';
+                    if(item.value == selectedValue)
+                        checkedStr = 'checked';
+                    let s1 = '<input type="radio" name="'+name+'" value="'+item.value+'" '+checkedStr+'>'+item.txt;
+                    return s1;
+                });
+                return arr1.join('');
+            }
+         </script>
+</body>
+</html>

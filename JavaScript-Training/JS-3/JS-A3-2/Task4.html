@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+            margin-top:20px;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+            cursor:pointer;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .red{
+            background-color:lightpink;
+        }
+
+        .green{
+            background-color:lightgreen;
+        }
+
+        .grey{
+            background-color:lightgray;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:2px;
+        }
+
+        .btn2{
+            background-color:red;
+            color:white;
+            margin:2px;
+        }
+
+        input,select{
+            margin:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Members Weight Data</h2>
+
+<div id="form"></div>
+
+<div id="members"></div>
+
+<script>
+
+    let members = [
+        {name:'Jack',oldWeight:70,newWeight:75},
+        {name:'Bob',oldWeight:80,newWeight:78},
+        {name:'Mary',oldWeight:65,newWeight:65},
+        {name:'Steve',oldWeight:90,newWeight:95}
+    ];
+
+    let displayData = [...members];
+
+    let minFilter = "";
+    let maxFilter = "";
+
+    showForm();
+    showMembers();
+
+    // FORM
+
+    function showForm(){
+
+        let minWt = members.reduce(function(acc,curr){
+
+            return curr.newWeight < acc ? curr.newWeight : acc;
+
+        },members[0].newWeight);
+
+        let maxWt = members.reduce(function(acc,curr){
+
+            return curr.newWeight > acc ? curr.newWeight : acc;
+
+        },members[0].newWeight);
+
+        let arr = [];
+
+        for(let i=minWt;i<=maxWt;i++){
+
+            arr.push(i);
+        }
+
+        let minOptions = arr.map(function(w){
+
+            let selected = (w == minFilter) ? "selected" : "";
+
+            return "<option "+selected+">"+w+"</option>";
+
+        });
+
+        let maxOptions = arr.map(function(w){
+
+            let selected = (w == maxFilter) ? "selected" : "";
+
+            return "<option "+selected+">"+w+"</option>";
+
+        });
+
+        let html = "";
+
+        html += "Min Weight : ";
+
+        html += "<select id='ddMin'>";
+
+        html += "<option value=''>Select</option>";
+
+        html += minOptions.join("");
+
+        html += "</select>";
+
+        html += "Max Weight : ";
+
+        html += "<select id='ddMax'>";
+
+        html += "<option value=''>Select</option>";
+
+        html += maxOptions.join("");
+
+        html += "</select>";
+
+        html += "<button class='btn1' onclick='filterData()'>Filter</button>";
+
+        html += "<button class='btn2' onclick='clearFilter()'>Clear Filter</button>";
+
+        html += "<button class='btn1' onclick='showAddForm()'>Add New Member</button>";
+
+        document.getElementById("form").innerHTML = html;
+    }
+
+    // SHOW TABLE
+
+    function showMembers(){
+
+        let arr = displayData.map(function(m){
+
+            let cls = getClass(m);
+
+            let str = "<tr class='"+cls+"'>";
+
+            str += "<td class='td1'>"+m.name+"</td>";
+
+            str += "<td class='td1'>"+m.oldWeight+"</td>";
+
+            str += "<td class='td1'>"+m.newWeight+"</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1' onclick='sort(0)'>Name</th>";
+
+        header += "<th class='th1' onclick='sort(1)'>Old Weight</th>";
+
+        header += "<th class='th1' onclick='sort(2)'>New Weight</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("members").innerHTML = html;
+    }
+
+    // COLOR
+
+    function getClass(m){
+
+        if(m.newWeight > m.oldWeight)
+            return "red";
+
+        else if(m.newWeight < m.oldWeight)
+            return "green";
+
+        else
+            return "grey";
+    }
+
+    // SORT DESCENDING
+
+    function sort(colno){
+
+        if(colno == 0)
+            displayData.sort(sortName);
+
+        else if(colno == 1)
+            displayData.sort(sortOldWeight);
+
+        else
+            displayData.sort(sortNewWeight);
+
+        showMembers();
+    }
+
+    function sortName(a,b){
+
+        return b.name.localeCompare(a.name);
+    }
+
+    function sortOldWeight(a,b){
+
+        return b.oldWeight - a.oldWeight;
+    }
+
+    function sortNewWeight(a,b){
+
+        return b.newWeight - a.newWeight;
+    }
+
+    // FILTER
+
+    function filterData(){
+
+        minFilter = document.getElementById("ddMin").value;
+
+        maxFilter = document.getElementById("ddMax").value;
+
+        displayData = members.filter(function(m){
+
+            return m.newWeight >= minFilter &&
+                   m.newWeight <= maxFilter;
+        });
+
+        showMembers();
+    }
+
+    // CLEAR FILTER
+
+    function clearFilter(){
+
+        minFilter = "";
+        maxFilter = "";
+
+        displayData = [...members];
+
+        showForm();
+        showMembers();
+    }
+
+    // ADD MEMBER FORM
+
+    function showAddForm(){
+
+        let weightArr = [];
+
+        for(let i=40;i<=100;i++){
+
+            weightArr.push(i);
+        }
+
+        let options = weightArr.map(function(w){
+
+            return "<option>"+w+"</option>";
+
+        });
+
+        let html = "";
+
+        html += "Name : ";
+        html += "<input type='text' id='txtName'><br>";
+
+        html += "Old Weight : ";
+        html += "<select id='ddOld'>";
+
+        html += options.join("");
+
+        html += "</select><br>";
+
+        html += "New Weight : ";
+        html += "<select id='ddNew'>";
+
+        html += options.join("");
+
+        html += "</select><br>";
+
+        html += "<button class='btn1' onclick='addMember()'>Add Member</button>";
+
+        html += "<button class='btn2' onclick='showForm()'>Back</button>";
+
+        document.getElementById("form").innerHTML = html;
+    }
+
+    // ADD MEMBER
+
+    function addMember(){
+
+        let name = document.getElementById("txtName").value;
+
+        let oldWeight = document.getElementById("ddOld").value;
+
+        let newWeight = document.getElementById("ddNew").value;
+
+        let obj = {
+            name:name,
+            oldWeight:+oldWeight,
+            newWeight:+newWeight
+        };
+
+        members.push(obj);
+
+        displayData = [...members];
+
+        showForm();
+        showMembers();
+    }
+
+</script>
+
+</body>
+</html>

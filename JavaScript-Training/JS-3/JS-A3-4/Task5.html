@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .extra-field{
+            margin-top:10px;
+            display:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Select Technology</h3>
+
+<div id="radioContainer"></div>
+
+<!-- Angular extra field -->
+
+<div id="angularField" class="extra-field">
+
+    <label>Select the Angular version :</label>
+
+    <select id="angularVersion">
+        <option value="">-- Select --</option>
+        <option value="Angular 14">Angular 14</option>
+        <option value="Angular 15">Angular 15</option>
+        <option value="Angular 16">Angular 16</option>
+    </select>
+
+</div>
+
+<!-- React extra field -->
+
+<div id="reactField" class="extra-field">
+
+    <input type="checkbox" id="reactNative">
+
+    Do you know React Native
+
+</div>
+
+<!-- JavaScript extra field -->
+
+<div id="jsField" class="extra-field">
+
+    <input type="radio"
+    name="bootstrap"
+    id="bs3"
+    value="Bootstrap 3">
+
+    Bootstrap 3
+
+    &nbsp;&nbsp;
+
+    <input type="radio"
+    name="bootstrap"
+    id="bs4"
+    value="Bootstrap 4">
+
+    Bootstrap 4
+
+</div>
+
+<script>
+
+    // Array of technologies
+    let technologies = ["Angular", "React", "JavaScript"];
+
+    // Function to create radio buttons using JavaScript
+    function createRadios(){
+
+        let html = "";
+
+        for(let i=0; i<technologies.length; i++){
+
+            html += '<input type="radio" ';
+            html += 'name="tech" ';
+            html += 'id="r' + i + '" ';
+            html += 'value="' + technologies[i] + '" ';
+            html += 'onchange="handleChange()"> ';
+            html += technologies[i];
+            html += ' &nbsp;&nbsp; ';
+        }
+
+        document.getElementById("radioContainer").innerHTML = html;
+    }
+
+    // Call the function to create radios
+    createRadios();
+
+
+    function handleChange(){
+
+        // Hide all extra fields first
+
+        document.getElementById("angularField").style.display = "none";
+        document.getElementById("reactField").style.display   = "none";
+        document.getElementById("jsField").style.display      = "none";
+
+        // Find the checked radio
+
+        let selected = "";
+
+        let radios = document.getElementsByName("tech");
+
+        for(let i=0; i<radios.length; i++){
+
+            if(radios[i].checked)
+
+                selected = radios[i].value;
+        }
+
+        // Show the matching field
+
+        if(selected === "Angular")
+
+            document.getElementById("angularField").style.display = "block";
+
+        else if(selected === "React")
+
+            document.getElementById("reactField").style.display = "block";
+
+        else if(selected === "JavaScript")
+
+            document.getElementById("jsField").style.display = "block";
+
+    }
+
+</script>
+
+</body>
+</html>

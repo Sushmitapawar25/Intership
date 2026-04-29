@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Persons Data</h2>
+    <div id = 'data'></div>
+    <button onclick="show(0)">Jack</button>
+    <button onclick="show(1)">Bob</button>
+    <button onclick="show(2)">Maryk</button>
+    <button onclick="clearData()">Clear</button>
+
+    <script>
+        let persons = [
+            {name:'Jack',email:'jack@email.com',mobile:'9800111'},
+            {name:'Bob',email:'bob@email.com',mobile:'740033332'},
+            {name:'Mary',email:'mary@email.com',mobile:'82380777'}
+        ];
+
+        function show(index){
+            let person = persons[index];
+            let element = document.getElementById('data');
+            let str = '<h3>' + person.name+ '<h3>';
+            str += '<h3>' + person.email + '<h3>';
+            str += '<h3>' + person.mobile + '<h3>';
+            console.log(str);
+            element.innerHTML = str;
+        }
+        function clearData(){
+            let element = document.getElementById('data');
+            element.innerHTML = " ";
+        }
+    </script>
+</body>
+</html>

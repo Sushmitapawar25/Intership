@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- TO Select the payment option, the user 
+    is initially shown a dropdown with the
+    basic payment types. AS the user selects 
+    an option,show another dropdown corresponding the option
+    chosen by the user. -->
+
+    Payment Option<br/>
+    <div id="payments"></div>
+
+    <script>
+        const paymentOptions = [{"type":"Credit Card","providers" : ["ICICI Bank","HDFC Bank","Citibank","SBI","Amex"]},
+        {"type":"Net banking","providers":["Paytm","Google Pay","Phone Pe", "Amazon Pay"]}
+        ];
+
+        showPaymentOptions();
+        function showPaymentOptions(){
+            const arr1=paymentOptions.map(function(p1){
+                return p1.type;
+            });
+            let dd1 = makeDDFn("dd1",arr1,'','Select Payment Method','payChange');
+            let div1 = document.getElementById("payments");
+            div1.innerHTML = dd1;
+        }
+        function payChange(elem){
+            let selOpt = elem.value;
+            const arr1=paymentOptions.map(function(p1){
+                return p1.type;
+            });
+            let dd1 = makeDDFn("dd1",arr1,selOpt,'Select Payment Method','payChange');
+
+            let json1 = paymentOptions.find(function(p1){
+                return p1.type == selOpt;
+            });
+            let dd2 = makeDDFn("dd2",json1.providers,'','Select','');
+            let div1 = document.getElementById("payments");
+            div1.innerHTML = dd1+dd2;
+        }
+        function makeDDFn(id,data,selectedVal,valOnTop,onChangeFn){
+            let dataMap = data.map(function(opt){
+                if(opt == selectedVal)
+                    return '<option selected>'+opt+'</option>';
+                else
+                    return '<option>' + opt + '</option>';
+            });
+            let first = '<option value=\'\' disabled>'+valOnTop+'</option>';
+            if(selectedVal == '')
+                first ='<option value=\'\' selected disabled>'+valOnTop+'</option>'
+            let ddHtml = '<select id=\''+id+'\'>';
+            if(onChangeFn != '')
+            ddHtml = '<select id=\''+id+'\' onchange=\''+onChangeFn + '(this)\'>';
+            ddHtml += first+dataMap.join('')+'</select>';
+            return ddHtml;
+        }
+    </script>
+</body>
+</html>

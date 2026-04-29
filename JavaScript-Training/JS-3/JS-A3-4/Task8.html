@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 8</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .btn1{
+            padding:8px;
+            margin-top:15px;
+        }
+
+        #studentList{
+            margin-top:20px;
+        }
+
+        #studentList span{
+            cursor:pointer;
+            color:blue;
+            text-decoration:underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Student Form</h3>
+
+<label>Name :</label><br>
+<input type="text" id="studentName"><br><br>
+
+<label>Sport :</label><br>
+<div id="radioContainer"></div>
+
+<button class="btn1" id="submitBtn"
+onclick="submitForm()">
+Submit
+</button>
+
+<div id="studentList"></div>
+
+<script>
+
+    let sports = ["Cricket", "Football", "Basketball", "Badminton", "Table Tennis"];
+
+    let students = [];
+
+    let editIndex = -1;
+
+    // Create radio buttons from array
+    function createRadios(selectedSport){
+
+        let html = "";
+
+        for(let i=0; i<sports.length; i++){
+
+            let checked = "";
+
+            if(selectedSport && selectedSport === sports[i])
+                checked = "checked";
+
+            html += '<input type="radio" ';
+            html += 'name="sport" ';
+            html += 'id="s' + i + '" ';
+            html += 'value="' + sports[i] + '" ';
+            html += checked + '> ';
+            html += sports[i] + '<br>';
+        }
+
+        document.getElementById("radioContainer").innerHTML = html;
+    }
+
+    createRadios();
+
+    function submitForm(){
+
+        let name = document.getElementById("studentName").value;
+
+        let radios = document.getElementsByName("sport");
+
+        let selectedSport = "";
+
+        for(let i=0; i<radios.length; i++){
+
+            if(radios[i].checked)
+                selectedSport = radios[i].value;
+        }
+
+        let student = {
+            name: name,
+            sport: selectedSport
+        };
+
+        if(editIndex === -1){
+
+            students.push(student);
+
+        } else {
+
+            students[editIndex] = student;
+            editIndex = -1;
+            document.getElementById("studentName").readOnly = false;
+            document.getElementById("submitBtn").innerHTML = "Submit";
+        }
+
+        // Reset form
+        document.getElementById("studentName").value = "";
+        createRadios();
+
+        showList();
+    }
+
+    function showList(){
+
+        let html = "<h4>Students :</h4>";
+
+        for(let i=0; i<students.length; i++){
+
+            html += '<span onclick="editStudent(' + i + ')">';
+            html += students[i].name;
+            html += '</span><br>';
+        }
+
+        document.getElementById("studentList").innerHTML = html;
+    }
+
+    function editStudent(index){
+
+        editIndex = index;
+
+        let student = students[index];
+
+        document.getElementById("studentName").value = student.name;
+        document.getElementById("studentName").readOnly = true;
+
+        createRadios(student.sport);
+
+        document.getElementById("submitBtn").innerHTML = "Update";
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        select,input{
+            padding:8px;
+            margin:10px;
+            font-size:16px;
+        }
+
+        .table1{
+            border-collapse: collapse;
+            margin-top:20px;
+            border:2px solid black;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Persons Data</h2>
+
+<select id="dd1" onchange="filterData()">
+
+    <option value="">Select Option</option>
+
+    <option>Name starts with</option>
+
+    <option>City starts with</option>
+
+    <option>Tech starts with</option>
+
+    <option>Name, City or Tech starts with</option>
+
+    <option>Present in Name, City or Tech</option>
+
+</select>
+
+<input type="text"
+id="txt1"
+placeholder="Search"
+onkeyup="filterData()">
+
+<div id="table"></div>
+
+<script>
+
+    let persons = [
+
+    {"name":"Jack","age":28,"city":"London","tech":"Node JS"},
+
+    {"name":"Mary","age":32,"city":"Mumbai","tech":"React JS"},
+
+    {"name":"Bob","age":35,"city":"New York","tech":"Angular JS"},
+
+    {"name":"Steve","age":26,"city":"New Delhi","tech":"Javascript JS"},
+
+    {"name":"Edwards","age":27,"city":"Los Angeles","tech":"Node JS"},
+
+    {"name":"Catherine","age":31,"city":"Montreal","tech":"React JS"},
+
+    {"name":"Williams","age":34,"city":"New York","tech":"Android"},
+
+    {"name":"John","age":25,"city":"Moscow","tech":"Java"},
+
+    {"name":"Anna","age":33,"city":"Moscow","tech":"Node JS"},
+
+    {"name":"Julia","age":29,"city":"New Jersey","tech":"Android"}
+
+    ];
+
+    let displayArr = [...persons];
+
+    showTable(displayArr);
+
+
+    // SHOW TABLE
+
+    function showTable(arr){
+
+        let rows = arr.map(function(p){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>" + p.name + "</td>";
+
+            str += "<td class='td1'>" + p.age + "</td>";
+
+            str += "<td class='td1'>" + p.city + "</td>";
+
+            str += "<td class='td1'>" + p.tech + "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Name</th>";
+
+        header += "<th class='th1'>Age</th>";
+
+        header += "<th class='th1'>City</th>";
+
+        header += "<th class='th1'>Technology</th>";
+
+        header += "</tr>";
+
+        let html =
+        "<table class='table1'>" +
+        header +
+        rows.join("") +
+        "</table>";
+
+        document.getElementById("table").innerHTML =
+        html;
+    }
+
+
+    // FILTER DATA
+
+    function filterData(){
+
+        let option =
+        document.getElementById("dd1").value;
+
+        let txt =
+        document.getElementById("txt1").value.toLowerCase();
+
+        // NO OPTION SELECTED
+
+        if(option == ""){
+
+            displayArr = [...persons];
+
+            showTable(displayArr);
+
+            return;
+        }
+
+        // FILTER
+
+        displayArr = persons.filter(function(p){
+
+            let name = p.name.toLowerCase();
+
+            let city = p.city.toLowerCase();
+
+            let tech = p.tech.toLowerCase();
+
+            // TASK 5.1
+
+            if(option == "Name starts with")
+                return name.startsWith(txt);
+
+            else if(option == "City starts with")
+                return city.startsWith(txt);
+
+            else if(option == "Tech starts with")
+                return tech.startsWith(txt);
+
+            // TASK 5.2
+
+            else if(option == "Name, City or Tech starts with")
+
+                return name.startsWith(txt) ||
+                       city.startsWith(txt) ||
+                       tech.startsWith(txt);
+
+            // TASK 5.3
+
+            else
+
+                return name.includes(txt) ||
+                       city.includes(txt) ||
+                       tech.includes(txt);
+
+        });
+
+        showTable(displayArr);
+    }
+
+</script>
+
+</body>
+</html>

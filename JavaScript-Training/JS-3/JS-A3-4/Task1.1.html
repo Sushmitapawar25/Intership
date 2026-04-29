@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Given the checkboxes,implement
+         a) Get the checked values
+         b) Check or uncheck all
+         c) Disable or enable all
+         d) Define an onchange event handler -->
+
+    What do you know<br/>
+    <input type="checkbox" id="cb1" onchange="changeCB(this)">JavaScript<br>
+    <input type="checkbox" id="cb2" onchange="changeCB(this)">React <br>
+    <input type="checkbox" id="cb3" onchange="changeCB(this)">Node <br>
+    <button onclick="showChecked()">Show Checked Value</button>
+    <button onclick="checkAll(true)">Check All</button>
+    <button onclick="uncheckAll(false)">Uncheck All</button>
+    <button onclick="disableAll(true)">Disable All</button>
+    <button onclick="enableAll(false)">Enable All</button>
+
+    <script>
+        function showChecked(){
+            let cb1 =document.getElementById('cb1');
+            let cb2 =document.getElementById('cb2');
+            let cb3 =document.getElementById('cb3');
+            console.log('cb1',cb1.checked);
+            console.log('cb2',cb2.checked);
+            console.log('cb3',cb3.checked);
+        }
+        function changeCB(elem){
+            console.log(elem.id,elem.checked,event);
+        }
+        function checkAll(bool){
+            document.getElementById('cb1').checked = bool;
+            document.getElementById('cb2').checked = bool;
+            document.getElementById('cb3').checked = bool;
+        }
+        // function uncheckAll(){
+        //     document.getElementById('cb1').checked = false;
+        //     document.getElementById('cb2').checked = false;
+        //     document.getElementById('cb3').checked = false;
+        // }
+        function disableAll(bool){
+            document.getElementById('cb1').disabled = bool;
+            document.getElementById('cb2').disabled = bool;
+            document.getElementById('cb3').disabled = bool;
+        }
+    </script>
+</body>
+</html>

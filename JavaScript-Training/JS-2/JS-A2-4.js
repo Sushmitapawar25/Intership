@@ -497,3 +497,5 @@ let res174 = arrT17.reduce(function(acc174, ele174){
 },0);
 
 console.log(res171, res172, res173, res174);
+
+

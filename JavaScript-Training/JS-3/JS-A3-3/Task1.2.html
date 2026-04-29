@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .c1{
+            background-color: lightpink;
+        }
+        .c2{
+            background-color: lightgrey;
+        }
+        .c3{
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <!-- In a text field as text is typed show 
+    it below the text field.Use different styles to 
+    show it depending on the length of the text -->
+
+    Text 1: <input type="text" id="txt1" onkeyup="keyup(this)"><br>
+    <div id="d1"></div>
+
+    <script>
+        function keyup(elem){
+            let txt = elem.value;
+            let div = document.getElementById('d1');
+            div.innerHTML = txt;
+            if(txt.length < 4)
+                div.className = "c1";
+            else if(txt.length < 8)
+                div.className = "c2";
+            else
+                div.className = "c3";
+        }
+    </script>
+</body>
+</html>

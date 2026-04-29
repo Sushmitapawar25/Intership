@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+            margin-top:20px;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:2px;
+        }
+
+        .btn2{
+            background-color:red;
+            color:white;
+            margin:2px;
+        }
+
+        .btn3{
+            background-color:blue;
+            color:white;
+            margin:2px;
+        }
+
+        input,select{
+            margin:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Persons Form</h2>
+
+<div id="main"></div>
+
+<div id="persons"></div>
+
+<script>
+
+    let cities = ['London','Paris','Delhi','NewYork'];
+
+    let techs = ['Android','React','Angular','Spring','Javascript'];
+
+    let persons = [
+        {
+            name:'Jack',
+            age:25,
+            city:'London',
+            technology:'React'
+        },
+        {
+            name:'Bob',
+            age:30,
+            city:'Delhi',
+            technology:'Angular'
+        }
+    ];
+
+    showMainForm();
+    showPersons();
+
+    // MAIN FORM
+
+    function showMainForm(){
+
+        let cityOptions = cities.map(function(ct){
+
+            return "<option>"+ct+"</option>";
+
+        });
+
+        let techOptions = techs.map(function(tc){
+
+            return "<option>"+tc+"</option>";
+
+        });
+
+        let html = "";
+
+        html += "Name : ";
+        html += "<input type='text' id='txtName'><br>";
+
+        html += "Age : ";
+        html += "<input type='text' id='txtAge'><br>";
+
+        html += "City : ";
+        html += "<select id='ddCity'>";
+        html += cityOptions.join("");
+        html += "</select><br>";
+
+        html += "Technology : ";
+        html += "<select id='ddTech'>";
+        html += techOptions.join("");
+        html += "</select><br>";
+
+        html += "<button class='btn1' onclick='addPerson()'>Add Person</button>";
+
+        html += "<button class='btn2' onclick='removePerson()'>Remove Person</button>";
+
+        html += "<button class='btn3' onclick='manageCities()'>Manage Cities</button>";
+
+        html += "<button class='btn3' onclick='manageTechs()'>Manage Techs</button>";
+
+        document.getElementById("main").innerHTML = html;
+    }
+
+    // SHOW TABLE
+
+    function showPersons(){
+
+        let arr = persons.map(function(p){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+p.name+"</td>";
+
+            str += "<td class='td1'>"+p.age+"</td>";
+
+            str += "<td class='td1'>"+p.city+"</td>";
+
+            str += "<td class='td1'>"+p.technology+"</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Name</th>";
+
+        header += "<th class='th1'>Age</th>";
+
+        header += "<th class='th1'>City</th>";
+
+        header += "<th class='th1'>Technology</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("persons").innerHTML = html;
+    }
+
+    // ADD PERSON
+
+    function addPerson(){
+
+        let name = document.getElementById("txtName").value;
+
+        let age = document.getElementById("txtAge").value;
+
+        let city = document.getElementById("ddCity").value;
+
+        let technology = document.getElementById("ddTech").value;
+
+        let index = persons.findIndex(function(p){
+
+            return p.name == name;
+
+        });
+
+        if(index >= 0){
+
+            alert("Person already exists");
+
+            return;
+        }
+
+        let obj = {
+            name:name,
+            age:age,
+            city:city,
+            technology:technology
+        };
+
+        persons.push(obj);
+
+        showPersons();
+    }
+
+    // REMOVE PERSON
+
+    function removePerson(){
+
+        let name = document.getElementById("txtName").value;
+
+        let index = persons.findIndex(function(p){
+
+            return p.name == name;
+
+        });
+
+        if(index < 0){
+
+            alert("Person not found");
+
+            return;
+        }
+
+        persons.splice(index,1);
+
+        showPersons();
+    }
+
+    // MANAGE CITIES
+
+    function manageCities(){
+
+        let arr = cities.map(function(c,index){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+c+"</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn2' onclick='removeCity("+index+")'>Remove</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let html = "";
+
+        html += "<h3>Manage Cities</h3>";
+
+        html += "City : ";
+        html += "<input type='text' id='txtCity'>";
+
+        html += "<button class='btn1' onclick='addCity()'>Add City</button>";
+
+        html += "<button class='btn3' onclick='showMainForm()'>Show Main Form</button>";
+
+        html += "<table class='table1'>";
+
+        html += "<tr>";
+        html += "<th class='th1'>City</th>";
+        html += "<th class='th1'>Remove</th>";
+        html += "</tr>";
+
+        html += arr.join("");
+
+        html += "</table>";
+
+        document.getElementById("main").innerHTML = html;
+    }
+
+    // ADD CITY
+
+    function addCity(){
+
+        let city = document.getElementById("txtCity").value;
+
+        cities.push(city);
+
+        manageCities();
+    }
+
+    // REMOVE CITY
+
+    function removeCity(index){
+
+        cities.splice(index,1);
+
+        manageCities();
+    }
+
+    // MANAGE TECHS
+
+    function manageTechs(){
+
+        let arr = techs.map(function(t,index){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+t+"</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn2' onclick='removeTech("+index+")'>Remove</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let html = "";
+
+        html += "<h3>Manage Technologies</h3>";
+
+        html += "Technology : ";
+        html += "<input type='text' id='txtTech'>";
+
+        html += "<button class='btn1' onclick='addTech()'>Add Technology</button>";
+
+        html += "<button class='btn3' onclick='showMainForm()'>Show Main Form</button>";
+
+        html += "<table class='table1'>";
+
+        html += "<tr>";
+        html += "<th class='th1'>Technology</th>";
+        html += "<th class='th1'>Remove</th>";
+        html += "</tr>";
+
+        html += arr.join("");
+
+        html += "</table>";
+
+        document.getElementById("main").innerHTML = html;
+    }
+
+    // ADD TECH
+
+    function addTech(){
+
+        let tech = document.getElementById("txtTech").value;
+
+        techs.push(tech);
+
+        manageTechs();
+    }
+
+    // REMOVE TECH
+
+    function removeTech(index){
+
+        techs.splice(index,1);
+
+        manageTechs();
+    }
+
+</script>
+
+</body>
+</html>

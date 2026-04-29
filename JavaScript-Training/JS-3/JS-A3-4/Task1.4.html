@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Given the radio buttons, implement
+         a) Get checked value using getElementById 
+         b) Get checked value using getElementByName
+         c) Check a specific radio
+         d) Disable or enable all
+         e) define an onchange event handler -->
+
+         What do you know best<br/>
+         <input type="radio" name="tech" onchange = "changeRadio(this)" value="JavaScript" id="r1">JavaScript<br>
+         <input type="radio" name="tech" onchange = "changeRadio(this)" value="React" id="r2">React<br/>
+         <input type="radio" name="tech" onchange = "changeRadio(this)" value="Angular" id="r3">Angular<br/>
+         <button onclick="showChecked()">Show Checked Values</button><br/>
+         <button onclick="check('tech','JavaScript1')">Check Javascript</button><br/>
+         <button onclick="disableALl('tech',true)">Disable All</button><br/>
+         <button onclick="disableAll('tech',false)">Enable All</button><br/>
+
+         <script>
+            // checked value usinng getElementById
+            // function showChecked(){
+            //     let value = '';
+            //     let r1 = document.getElementById("r1");
+            //     if(r1.checked)
+            //         value = r1.value;
+            //     let r2 = document.getElementById("r2");
+            //     if(r2.checked)
+            //         value = r2.value;
+            //     let r3 = document.getElementById("r3");
+            //     if(r3.checked)
+            //         value = r3.value;
+            //     console.log(value); 
+            // }
+
+            // using getElementByName
+            function showChecked(){
+                let value = '';
+                let names = document.getElementsByName('tech');
+                console.log(names);
+                for(let i=0; i<names.length; i++){
+                    if(names[i].checked)
+                        value = names[i].value;
+                }
+                console.log(value);
+            }
+            function check(name,value){
+                let names = document.getElementsByName(name);
+                console.log(names);
+                for(let i=0; i<names.length; i++){
+                    if(names[i].value == value)
+                        names[i].checked = true;
+                    else
+                        names[i].checked = false;
+                }
+                console.log(value);
+            }
+            function disableALl(name,bool){
+                let names = document.getElementsByName(name);
+                console.log(names);
+                for(let i=0; i<names.length; i++){
+                        names[i].disabled = bool;
+                }
+            }
+            function changeRadio(elem){
+                console.log(elem.name, elem.id, elem.value,event);
+            }
+         </script>
+</body>
+</html>

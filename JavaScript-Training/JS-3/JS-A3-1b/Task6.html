@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Contestants</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        /* SAME COLORS AS PDF */
+
+        .positive{
+            background-color:lightgreen;
+        }
+
+        .negative{
+            background-color:lightpink;
+        }
+
+        .zero{
+            background-color:lightblue;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:2px;
+        }
+
+        .btn2{
+            background-color:red;
+            color:white;
+            margin:2px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Quiz Contestants</h2>
+
+<div id="contestants"></div>
+
+<script>
+
+    let contestants = [
+        {name:"Einstein",score:0},
+        {name:"Newton",score:0},
+        {name:"Edison",score:0}
+    ];
+
+    showContestants();
+
+    function showContestants(){
+
+        let arr = contestants.map(function(c){
+
+            let cls = getClass(c.score);
+
+            let str = "<tr class='"+cls+"'>";
+
+            str += "<td class='td1'>"+c.name+"</td>";
+
+            str += "<td class='td1'>"+c.score+"</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn1' onclick='add2(\""+c.name+"\")'>+2</button>";
+            str += "</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn2' onclick='minus1(\""+c.name+"\")'>-1</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Name</th>";
+        header += "<th class='th1'>Score</th>";
+        header += "<th class='th1'>Correct</th>";
+        header += "<th class='th1'>Wrong</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("contestants").innerHTML = html;
+    }
+
+    function getClass(score){
+
+        if(score > 0)
+            return "positive";
+
+        else if(score < 0)
+            return "negative";
+
+        else
+            return "zero";
+    }
+
+    function add2(name){
+
+        let index = contestants.findIndex(function(c){
+            return c.name == name;
+        });
+
+        contestants[index].score += 2;
+
+        showContestants();
+    }
+
+    function minus1(name){
+
+        let index = contestants.findIndex(function(c){
+            return c.name == name;
+        });
+
+        contestants[index].score -= 1;
+
+        showContestants();
+    }
+
+</script>
+
+</body>
+</html>

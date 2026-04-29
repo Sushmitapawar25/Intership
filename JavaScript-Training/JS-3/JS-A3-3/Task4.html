@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .main{
+            width:500px;
+            border:2px solid black;
+            padding:20px;
+            background-color:lightblue;
+        }
+
+        input{
+            width:250px;
+            padding:10px;
+            margin-top:10px;
+            margin-bottom:10px;
+            font-size:16px;
+        }
+
+        .error{
+            color:red;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            padding:10px;
+            border:none;
+            margin-top:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+    <h2>Add Person</h2>
+
+    <!-- NAME -->
+
+    Name <br>
+
+    <input type="text"
+    id="txtName"
+    onkeyup="checkName()">
+
+    <div class="error" id="errName"></div>
+
+
+    <!-- AGE -->
+
+    Age <br>
+
+    <input type="text"
+    id="txtAge"
+    onkeyup="checkAge()">
+
+    <div class="error" id="errAge"></div>
+
+
+    <!-- CITY -->
+
+    City <br>
+
+    <input type="text"
+    id="txtCity"
+    onkeyup="checkCity()">
+
+    <div class="error" id="errCity"></div>
+
+
+    <!-- TECH -->
+
+    Technology <br>
+
+    <input type="text"
+    id="txtTech"
+    onkeyup="checkTech()">
+
+    <div class="error" id="errTech"></div>
+
+
+    <button class="btn1"
+    id="btnAdd"
+    disabled>
+    Add Person
+    </button>
+
+</div>
+
+<script>
+
+    let persons = [
+
+        {"name":"Jack","age":28,"city":"London","tech":"Android"},
+
+        {"name":"Mary","age":32,"city":"Paris","tech":"React"},
+
+        {"name":"Bob","age":35,"city":"New York","tech":"Angular"},
+
+        {"name":"Steve","age":26,"city":"Delhi","tech":"Spring"}
+
+    ];
+
+    let valid = [false,false,false,false];
+
+
+    // TASK 4.1
+
+    function checkName(){
+
+        let name =
+        document.getElementById("txtName").value;
+
+        let index =
+        persons.findIndex(function(p){
+
+            return p.name.toLowerCase() ==
+            name.toLowerCase();
+
+        });
+
+        if(index >= 0){
+
+            document.getElementById("errName").innerHTML =
+            "Name already exists";
+
+            valid[0] = false;
+        }
+
+        else{
+
+            document.getElementById("errName").innerHTML =
+            "";
+
+            valid[0] = true;
+        }
+
+        updateButton();
+    }
+
+
+    // TASK 4.2
+
+    function checkAge(){
+
+        let age =
+        document.getElementById("txtAge").value;
+
+        if(age < 18){
+
+            document.getElementById("errAge").innerHTML =
+            "Age should be 18 or more";
+
+            valid[1] = false;
+        }
+
+        else{
+
+            document.getElementById("errAge").innerHTML =
+            "";
+
+            valid[1] = true;
+        }
+
+        updateButton();
+    }
+
+
+    // TASK 4.3
+
+    function checkCity(){
+
+        let city =
+        document.getElementById("txtCity").value;
+
+        let cities =
+        persons.map(function(p){
+
+            return p.city;
+
+        });
+
+        if(!cities.includes(city)){
+
+            document.getElementById("errCity").innerHTML =
+            "Enter city from : " + cities.join(", ");
+
+            valid[2] = false;
+        }
+
+        else{
+
+            document.getElementById("errCity").innerHTML =
+            "";
+
+            valid[2] = true;
+        }
+
+        updateButton();
+    }
+
+
+    // TASK 4.4
+
+    function checkTech(){
+
+        let tech =
+        document.getElementById("txtTech").value;
+
+        let techs =
+        persons.map(function(p){
+
+            return p.tech;
+
+        });
+
+        if(!techs.includes(tech)){
+
+            document.getElementById("errTech").innerHTML =
+            "Enter technology from : " +
+            techs.join(", ");
+
+            valid[3] = false;
+        }
+
+        else{
+
+            document.getElementById("errTech").innerHTML =
+            "";
+
+            valid[3] = true;
+        }
+
+        updateButton();
+    }
+
+
+    // TASK 4.5
+
+    function updateButton(){
+
+        let allTrue =
+        valid.every(function(v){
+
+            return v == true;
+
+        });
+
+        document.getElementById("btnAdd").disabled =
+        !allTrue;
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Define a function that takes an array
+       of string and id as parameter and returns the
+       html to create checkbox for each element of the 
+       array.Note that the ids of the checkboxes will be id + index-->
+    what do you know<br>
+    <div id="newcb"></div>
+
+    <script>
+        let cbValues1 = ["Javascript","React","Node"];
+        document.getElementById("newcb").innerHTML = makeCheckboxes("xyz",cbValues1);
+        function makeCheckboxes(id,arr){
+            const arr1 = arr.map(function(val,index){
+                let s1 = '<input type="checkbox" id="'+id+index+'">'+val;
+                return s1;
+            });
+            return arr1.join('');
+        }
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2.1 & 2.2</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+            margin-top:20px;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:2px;
+        }
+
+        .btn2{
+            background-color:blue;
+            color:white;
+            margin:2px;
+        }
+
+        .btn3{
+            background-color:red;
+            color:white;
+            margin:2px;
+        }
+
+        input{
+            margin:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Products</h2>
+
+<div id="form"></div>
+
+<div id="products"></div>
+
+<script>
+
+    let products = [
+        {prod:'Pepsi',price:15,stock:20},
+        {prod:'Coke',price:18,stock:30},
+        {prod:'Maggi',price:10,stock:35}
+    ];
+
+    let editIndex = -1;
+
+    showForm();
+    showProducts();
+
+    // FORM
+
+    function showForm(){
+
+        let prodName = "";
+        let price = "";
+        let stock = "";
+        let btnText = "Add Product";
+
+        // TASK 2.2 EDIT
+
+        if(editIndex >= 0){
+
+            prodName = products[editIndex].prod;
+            price = products[editIndex].price;
+            stock = products[editIndex].stock;
+
+            btnText = "Update";
+        }
+
+        let html = "";
+
+        html += "Product Name : ";
+        html += "<input type='text' id='txtProd' value='"+prodName+"'";
+
+        // readonly during edit
+
+        if(editIndex >= 0)
+            html += " readonly ";
+
+        html += " ><br>";
+
+        html += "Price : ";
+        html += "<input type='text' id='txtPrice' value='"+price+"'><br>";
+
+        html += "Stock : ";
+        html += "<input type='text' id='txtStock' value='"+stock+"'><br>";
+
+        html += "<button class='btn1' onclick='addProduct()'>"+btnText+"</button>";
+
+        document.getElementById("form").innerHTML = html;
+    }
+
+    // SHOW TABLE
+
+    function showProducts(){
+
+        let arr = products.map(function(p,index){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+p.prod+"</td>";
+
+            str += "<td class='td1'>"+p.price+"</td>";
+
+            str += "<td class='td1'>"+p.stock+"</td>";
+
+            // EDIT BUTTON
+
+            str += "<td class='td1'>";
+            str += "<button class='btn2' onclick='editProduct("+index+")'>Edit</button>";
+            str += "</td>";
+
+            // REMOVE BUTTON
+
+            str += "<td class='td1'>";
+            str += "<button class='btn3' onclick='removeProduct("+index+")'>Remove</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Product</th>";
+
+        header += "<th class='th1'>Price</th>";
+
+        header += "<th class='th1'>Stock</th>";
+
+        header += "<th class='th1'>Edit</th>";
+
+        header += "<th class='th1'>Remove</th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("products").innerHTML = html;
+    }
+
+    // ADD / UPDATE PRODUCT
+
+    function addProduct(){
+
+        let prodName = document.getElementById("txtProd").value;
+
+        let price = document.getElementById("txtPrice").value;
+
+        let stock = document.getElementById("txtStock").value;
+
+        let obj = {
+            prod : prodName,
+            price : price,
+            stock : stock
+        };
+
+        // UPDATE
+
+        if(editIndex >= 0){
+
+            products[editIndex] = obj;
+
+            editIndex = -1;
+        }
+
+        // ADD NEW
+
+        else{
+
+            products.push(obj);
+        }
+
+        showProducts();
+
+        showForm();
+    }
+
+    // EDIT
+
+    function editProduct(index){
+
+        editIndex = index;
+
+        showForm();
+    }
+
+    // REMOVE
+
+    function removeProduct(index){
+
+        products.splice(index,1);
+
+        showProducts();
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Below a text field the list of words statring with
+     the text entered is shown
+     As the user types in the text field, update the list appropriately -->
+
+     <input type="text" id="t1" onkeyup="updateList(this)"><br>
+     <div id="d1"></div>
+
+     <script>
+        const words = ["Age","Again","Agree","About",
+                    "Actor","Ace","Adamant","After",
+                    "Afraid","Bat","Ball","Balloon",
+                    "Bear","Became","Best","Bike","Bicycle"];
+        updateList(document.getElementById("t1"));
+        function updateList(elem){
+            let txt = elem.value;
+            const list1 = words.filter(function(w1){
+                return w1.startsWith(txt);
+            });
+            const arr1 = list1.map(function(w1){
+                return w1+"<br/>";
+            });
+            arr1.unshift("Number of words is "+ list1.length+"<br/>");
+            let div1 = document.getElementById("d1");
+            d1.innerHTML = arr1.join('');
+        }
+     </script>
+</body>
+</html>

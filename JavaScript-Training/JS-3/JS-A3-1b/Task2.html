@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Sorting & Filtering</title>
+</head>
+<body>
+
+    <h2>People List</h2>
+
+    <!-- Buttons -->
+    <button onclick="showAll()">Show</button>
+    <button onclick="hideAll()">Hide</button>
+    <button onclick="sortByName()">Sort by Name</button>
+    <button onclick="sortByCountry()">Sort by Country</button>
+    <button onclick="sortByAge()">Sort by Age</button>
+    <button onclick="sortCountryName()">Sort by Country & Name</button>
+    <button onclick="sortCountryAge()">Sort by Country & Age</button>
+    <button onclick="filterCountry('India')">India</button>
+    <button onclick="filterCountry('USA')">USA</button>
+    <button onclick="filterCountry('France')">France</button>
+    <button onclick="styleByCountry()">Style by Country</button>
+    <button onclick="styleByAge()">Style by Age</button>
+
+    <div id="output"></div>
+
+<script>
+
+const data = [
+{"name":"Jack","country":"USA","age":35},
+{"name":"Amit","country":"India","age":38},
+{"name":"Edward","country":"USA","age":41},
+{"name":"Vishal","country":"India","age":30},
+{"name":"Annie","country":"USA","age":27},
+{"name":"Nick","country":"France","age":32},
+{"name":"Francis","country":"France","age":44},
+{"name":"Preeti","country":"India","age":25},
+{"name":"Sophie","country":"France","age":29},
+{"name":"Harpreet","country":"India","age":48},
+{"name":"Bob","country":"USA","age":21}
+];
+
+let currentData = [...data];
+
+function display(arr, styleType="") {
+    let output = "";
+
+    arr.forEach(p => {
+        let color = "black";
+
+        if(styleType === "country"){
+            if(p.country === "India") color = "blue";
+            else if(p.country === "USA") color = "green";
+            else if(p.country === "France") color = "red";
+        }
+
+        if(styleType === "age"){
+            if(p.age <= 30) color = "green";
+            else if(p.age > 30 && p.age <= 40) color = "blue";
+            else color = "red";
+        }
+
+        output += `<p style="color:${color}">
+            ${p.name} - ${p.country} - ${p.age}
+        </p>`;
+    });
+
+    document.getElementById("output").innerHTML = output;
+}
+
+// a) Show
+function showAll(){
+    currentData = [...data];
+    display(currentData);
+}
+
+// b) Hide
+function hideAll(){
+    document.getElementById("output").innerHTML = "";
+}
+
+// c) Sort by name
+function sortByName(){
+    currentData.sort((a,b)=>a.name.localeCompare(b.name));
+    display(currentData);
+}
+
+// d) Sort by country
+function sortByCountry(){
+    currentData.sort((a,b)=>a.country.localeCompare(b.country));
+    display(currentData);
+}
+
+// e) Sort by age
+function sortByAge(){
+    currentData.sort((a,b)=>a.age - b.age);
+    display(currentData);
+}
+
+// f) Sort by country and name
+function sortCountryName(){
+    currentData.sort((a,b)=>{
+        return a.country.localeCompare(b.country) || a.name.localeCompare(b.name);
+    });
+    display(currentData);
+}
+
+// g) Sort by country and age
+function sortCountryAge(){
+    currentData.sort((a,b)=>{
+        return a.country.localeCompare(b.country) || a.age - b.age;
+    });
+    display(currentData);
+}
+
+// h,i,j Filter country
+function filterCountry(c){
+    let filtered = data.filter(p=>p.country === c);
+    display(filtered);
+}
+
+// k) Style by country
+function styleByCountry(){
+    display(currentData, "country");
+}
+
+// l) Style by age
+function styleByAge(){
+    display(currentData, "age");
+}
+
+</script>
+
+</body>
+</html>

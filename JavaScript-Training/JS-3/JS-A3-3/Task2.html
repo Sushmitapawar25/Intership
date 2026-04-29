@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            text-align:center;
+            margin-top:100px;
+        }
+
+        input{
+            width:120px;
+            padding:10px;
+            font-size:18px;
+            text-align:center;
+        }
+
+        .symbol{
+            font-size:30px;
+            font-weight:bold;
+            margin:15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<input type="text"
+id="txt1"
+onkeyup="calculateSum()">
+
+<span class="symbol">+</span>
+
+<input type="text"
+id="txt2"
+onkeyup="calculateSum()">
+
+<span class="symbol">=</span>
+
+<input type="text"
+id="txt3"
+readonly>
+
+<script>
+
+    function calculateSum(){
+
+        let num1 =
+        document.getElementById("txt1").value;
+
+        let num2 =
+        document.getElementById("txt2").value;
+
+        // empty means 0
+
+        if(num1 == "")
+            num1 = 0;
+
+        if(num2 == "")
+            num2 = 0;
+
+        // check non numerical values
+
+        if(isNaN(num1) || isNaN(num2)){
+
+            document.getElementById("txt3").value =
+            "Input correct numbers";
+
+            return;
+        }
+
+        let sum = +num1 + +num2;
+
+        document.getElementById("txt3").value = sum;
+    }
+
+</script>
+
+</body>
+</html>

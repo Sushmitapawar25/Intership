@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Cart</title>
+
+    <style>
+
+        .table1{
+            border-collapse: collapse;
+            border:2px solid black;
+            margin-bottom:20px;
+        }
+
+        .th1{
+            background-color:black;
+            color:white;
+            border:1px solid white;
+            padding:10px;
+        }
+
+        .td1{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+            font-weight:bold;
+        }
+
+        .btn1{
+            background-color:green;
+            color:white;
+            margin:2px;
+        }
+
+        .btn2{
+            background-color:rgb(199, 60, 80);
+            color:white;
+            margin:2px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Products</h2>
+
+<div id="products"></div>
+
+<h2>Cart</h2>
+
+<div id="cart"></div>
+
+<script>
+
+    let products = [
+        {prod:'Pepsi',price:15,stock:20},
+        {prod:'Coke',price:18,stock:30},
+        {prod:'Maggi',price:10,stock:35},
+        {prod:'Nescafe',price:40,stock:10},
+        {prod:'Dairy Milk',price:30,stock:12},
+        {prod:'Frito Lays',price:20,stock:15}
+    ];
+
+    let cart = [];
+
+    showProducts();
+    showCart();
+
+    // SHOW PRODUCTS
+
+    function showProducts(){
+
+        let arr = products.map(function(p){
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+p.prod+"</td>";
+            str += "<td class='td1'>"+p.price+"</td>";
+            str += "<td class='td1'>"+p.stock+"</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn1' onclick='addToCart(\""+p.prod+"\")'>Add To Cart</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Product</th>";
+        header += "<th class='th1'>Price</th>";
+        header += "<th class='th1'>Stock</th>";
+        header += "<th class='th1'></th>";
+
+        header += "</tr>";
+
+        let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("products").innerHTML = html;
+    }
+
+    // ADD TO CART
+
+    function addToCart(prodName){
+
+        let index = cart.findIndex(function(c){
+            return c.prod == prodName;
+        });
+
+        let pIndex = products.findIndex(function(p){
+            return p.prod == prodName;
+        });
+
+        if(index >= 0){
+
+            cart[index].qty++;
+
+        }
+        else{
+
+            let obj = {
+                prod : products[pIndex].prod,
+                price : products[pIndex].price,
+                qty : 1
+            };
+
+            cart.push(obj);
+        }
+
+        showCart();
+    }
+
+    // REMOVE FROM CART
+
+    function removeCart(prodName){
+
+        let index = cart.findIndex(function(c){
+            return c.prod == prodName;
+        });
+
+        cart.splice(index,1);
+
+        showCart();
+    }
+
+    // SHOW CART
+
+    function showCart(){
+
+        if(cart.length == 0){
+
+            document.getElementById("cart").innerHTML = "<h3>Cart is Empty</h3>";
+
+            return;
+        }
+
+        let totalAmount = 0;
+        let totalItems = 0;
+
+        let arr = cart.map(function(c){
+
+            totalAmount += c.price * c.qty;
+            totalItems += c.qty;
+
+            let str = "<tr>";
+
+            str += "<td class='td1'>"+c.prod+"</td>";
+            str += "<td class='td1'>"+c.price+"</td>";
+            str += "<td class='td1'>"+c.qty+"</td>";
+            str += "<td class='td1'>"+(c.price*c.qty)+"</td>";
+
+            str += "<td class='td1'>";
+            str += "<button class='btn2' onclick='removeCart(\""+c.prod+"\")'>Remove From Cart</button>";
+            str += "</td>";
+
+            str += "</tr>";
+
+            return str;
+
+        });
+
+        let header = "<tr>";
+
+        header += "<th class='th1'>Product</th>";
+        header += "<th class='th1'>Price</th>";
+        header += "<th class='th1'>Quantity</th>";
+        header += "<th class='th1'>Amount</th>";
+        header += "<th class='th1'></th>";
+
+        header += "</tr>";
+
+        let html = "";
+
+        html += "<h3>Total Items : "+totalItems+"</h3>";
+        html += "<h3>Total Amount : "+totalAmount+"</h3>";
+
+        html += "<table class='table1'>" + header + arr.join("") + "</table>";
+
+        document.getElementById("cart").innerHTML = html;
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .btn1{
+            padding:8px;
+            margin-top:15px;
+        }
+
+        #studentList{
+            margin-top:20px;
+        }
+
+        #studentList span{
+            cursor:pointer;
+            color:blue;
+            text-decoration:underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Student Form</h3>
+
+<label>Name :</label><br>
+<input type="text" id="studentName"><br><br>
+
+<label>Sports :</label><br>
+<div id="checkboxContainer"></div>
+
+<button class="btn1" id="submitBtn"
+onclick="submitForm()">
+Submit
+</button>
+
+<div id="studentList"></div>
+
+<script>
+
+    let sports = ["Cricket", "Football", "Basketball", "Badminton", "Table Tennis"];
+
+    let students = [];
+
+    let editIndex = -1;
+
+    // Create checkboxes from array
+    function createCheckboxes(selectedSports){
+
+        let html = "";
+
+        for(let i=0; i<sports.length; i++){
+
+            let checked = "";
+
+            if(selectedSports && selectedSports.includes(sports[i]))
+                checked = "checked";
+
+            html += '<input type="checkbox" ';
+            html += 'name="sport" ';
+            html += 'id="s' + i + '" ';
+            html += 'value="' + sports[i] + '" ';
+            html += checked + '> ';
+            html += sports[i] + '<br>';
+        }
+
+        document.getElementById("checkboxContainer").innerHTML = html;
+    }
+
+    createCheckboxes();
+
+    function submitForm(){
+
+        let name = document.getElementById("studentName").value;
+
+        let checkboxes = document.getElementsByName("sport");
+
+        let selectedSports = [];
+
+        for(let i=0; i<checkboxes.length; i++){
+
+            if(checkboxes[i].checked)
+                selectedSports.push(checkboxes[i].value);
+        }
+
+        let student = {
+            name: name,
+            sports: selectedSports
+        };
+
+        if(editIndex === -1){
+
+            students.push(student);
+
+        } else {
+
+            students[editIndex] = student;
+            editIndex = -1;
+            document.getElementById("studentName").readOnly = false;
+            document.getElementById("submitBtn").innerHTML = "Submit";
+        }
+
+        // Reset form
+        document.getElementById("studentName").value = "";
+        createCheckboxes();
+
+        showList();
+    }
+
+    function showList(){
+
+        let html = "<h4>Students :</h4>";
+
+        for(let i=0; i<students.length; i++){
+
+            html += '<span onclick="editStudent(' + i + ')">';
+            html += students[i].name;
+            html += '</span><br>';
+        }
+
+        document.getElementById("studentList").innerHTML = html;
+    }
+
+    function editStudent(index){
+
+        editIndex = index;
+
+        let student = students[index];
+
+        document.getElementById("studentName").value = student.name;
+        document.getElementById("studentName").readOnly = true;
+
+        createCheckboxes(student.sports);
+
+        document.getElementById("submitBtn").innerHTML = "Update";
+    }
+
+</script>
+
+</body>
+</html>

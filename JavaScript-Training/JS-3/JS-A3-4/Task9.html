@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 9</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .tech-row{
+            margin-bottom:10px;
+        }
+
+        .level-row{
+            margin-left:20px;
+            margin-top:5px;
+            display:none;
+        }
+
+        .project-row{
+            margin-left:20px;
+            margin-top:5px;
+            display:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Share your technical capabilities</h3>
+
+<div id="techContainer"></div>
+
+<script>
+
+    let technologies = ["Javascript", "Python", "Java", "Android", "iOS"];
+
+    let levels = ["Beginner", "Intermediate", "Good", "Excellent"];
+
+    // Create checkboxes for each technology
+    function createTechCheckboxes(){
+
+        let html = "";
+
+        for(let i=0; i<technologies.length; i++){
+
+            html += '<div class="tech-row">';
+
+            html += '<input type="checkbox" ';
+            html += 'id="tech_' + i + '" ';
+            html += 'value="' + technologies[i] + '" ';
+            html += 'onchange="handleTechChange(' + i + ')"> ';
+            html += technologies[i];
+
+            // Level radio buttons (hidden by default)
+            html += '<div class="level-row" id="levelRow_' + i + '">';
+            html += 'What is your level : &nbsp;';
+
+            for(let j=0; j<levels.length; j++){
+
+                html += '<input type="radio" ';
+                html += 'name="level_' + i + '" ';
+                html += 'id="level_' + i + '_' + j + '" ';
+                html += 'value="' + levels[j] + '" ';
+                html += 'onchange="handleLevelChange(' + i + ')"> ';
+                html += levels[j] + ' &nbsp;';
+            }
+
+            html += '</div>';
+
+            // Project link field (hidden by default)
+            html += '<div class="project-row" id="projectRow_' + i + '">';
+            html += 'Share the link of a project : ';
+            html += '<input type="text" id="project_' + i + '">';
+            html += '</div>';
+
+            html += '</div>';
+        }
+
+        document.getElementById("techContainer").innerHTML = html;
+    }
+
+    createTechCheckboxes();
+
+    function handleTechChange(i){
+
+        let isChecked = document.getElementById("tech_" + i).checked;
+
+        // Show or hide level radios
+        if(isChecked){
+
+            document.getElementById("levelRow_" + i).style.display = "block";
+
+        } else {
+
+            document.getElementById("levelRow_" + i).style.display = "none";
+            document.getElementById("projectRow_" + i).style.display = "none";
+
+            // Uncheck all level radios for this tech
+            let radios = document.getElementsByName("level_" + i);
+
+            for(let j=0; j<radios.length; j++){
+                radios[j].checked = false;
+            }
+        }
+    }
+
+    function handleLevelChange(i){
+
+        let selected = "";
+
+        let radios = document.getElementsByName("level_" + i);
+
+        for(let j=0; j<radios.length; j++){
+
+            if(radios[j].checked)
+                selected = radios[j].value;
+        }
+
+        // Show project field only for Good or Excellent
+        if(selected === "Good" || selected === "Excellent"){
+
+            document.getElementById("projectRow_" + i).style.display = "block";
+
+        } else {
+
+            document.getElementById("projectRow_" + i).style.display = "none";
+        }
+    }
+
+</script>
+
+</body>
+</html>

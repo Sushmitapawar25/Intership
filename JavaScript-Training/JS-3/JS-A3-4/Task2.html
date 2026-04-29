@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .btn1{
+            padding:8px;
+            margin-top:15px;
+        }
+
+        #result{
+            margin-top:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h3>Select Subjects</h3>
+
+<!-- TASK 2.1 + TASK 2.2 -->
+
+<input type="checkbox"
+id="cb1"
+checked>
+Mathematics
+
+<br><br>
+
+<input type="checkbox"
+id="cb2">
+Physics
+
+<br><br>
+
+<input type="checkbox"
+id="cb3">
+Chemistry
+
+<br><br>
+
+<input type="checkbox"
+id="cb4"
+checked>
+English
+
+<br><br>
+
+<button class="btn1"
+onclick="showStatus()">
+
+Show Status
+
+</button>
+
+<div id="result"></div>
+
+<script>
+
+    function showStatus(){
+
+        let math =
+        document.getElementById("cb1").checked;
+
+        let physics =
+        document.getElementById("cb2").checked;
+
+        let chemistry =
+        document.getElementById("cb3").checked;
+
+        let english =
+        document.getElementById("cb4").checked;
+
+        let str = "";
+
+        str += "Mathematics : " + math + "<br>";
+
+        str += "Physics : " + physics + "<br>";
+
+        str += "Chemistry : " + chemistry + "<br>";
+
+        str += "English : " + english;
+
+        document.getElementById("result").innerHTML =
+        str;
+    }
+
+</script>
+
+</body>
+</html>

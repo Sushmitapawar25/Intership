@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+        }
+
+        .card{
+            border:2px solid black;
+            width:230px;
+            padding:15px;
+            margin:10px;
+            display:inline-block;
+            vertical-align:top;
+            border-radius:10px;
+            background-color:skyblue;
+        }
+
+        .offerCard{
+            background-color:lightpink;
+        }
+
+        .btn1{
+            background-color:blue;
+            color:white;
+            padding:8px;
+            border:none;
+            border-radius:5px;
+            margin-top:10px;
+        }
+
+        ul{
+            padding-left:20px;
+        }
+
+        li{
+            margin:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Products Offers</h2>
+
+<div id="products"></div>
+
+<script>
+
+    let products = [
+        {name:"Maggi",price:25,offers:["Citi Credit Cards","ICICI Card"]},
+        {name:"Perk",price:10,offers:["Axis Credit Cards","PayTM"]},
+        {name:"Gems",price:15,offers:["SBI Card","PhonePe","PayTM"]},
+        {name:"Lindt",price:90,offers:[]},
+        {name:"Nutties",price:12,offers:["Citi Credit Cards"]},
+        {name:"Pepsi",price:15,offers:["PhonePe","PayTM"]},
+        {name:"Coca Cola",price:15,offers:["SBI Card"]},
+        {name:"Dairy Milk",price:10,offers:[]}
+    ];
+
+    // stores index whose offers are visible
+
+    let showIndex = -1;
+
+    showProducts();
+
+    // SHOW PRODUCTS
+
+    function showProducts(){
+
+        let arr = products.map(function(p,index){
+
+            let cls = "card";
+
+            if(showIndex == index)
+                cls += " offerCard";
+
+            let str = "<div class='"+cls+"'>";
+
+            str += "<h3>"+p.name+"</h3>";
+
+            str += "<h4>Price : "+p.price+"</h4>";
+
+            // SHOW OFFERS
+
+            if(showIndex == index){
+
+                if(p.offers.length == 0){
+
+                    str += "<p>No Offers Available</p>";
+                }
+
+                else{
+
+                    let offersArr = p.offers.map(function(of){
+
+                        return "<li>"+of+"</li>";
+
+                    });
+
+                    str += "<ul>"+offersArr.join("")+"</ul>";
+                }
+
+                str += "<button class='btn1' onclick='hideOffers()'>Hide Offers</button>";
+            }
+
+            // NORMAL DISPLAY
+
+            else{
+
+                str += "<button class='btn1' onclick='showOffers("+index+")'>Show Offers</button>";
+            }
+
+            str += "</div>";
+
+            return str;
+
+        });
+
+        document.getElementById("products").innerHTML = arr.join("");
+    }
+
+    // SHOW OFFERS
+
+    function showOffers(index){
+
+        showIndex = index;
+
+        showProducts();
+    }
+
+    // HIDE OFFERS
+
+    function hideOffers(){
+
+        showIndex = -1;
+
+        showProducts();
+    }
+
+</script>
+
+</body>
+</html>

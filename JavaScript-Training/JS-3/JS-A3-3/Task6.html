@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            text-align:center;
+            margin-top:100px;
+        }
+
+        .main{
+            border:2px solid black;
+            width:600px;
+            margin:auto;
+            padding:30px;
+            background-color:white;
+        }
+
+        input{
+            width:140px;
+            padding:10px;
+            font-size:16px;
+            text-align:center;
+        }
+
+        select{
+            padding:10px;
+            font-size:16px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Length Converter</h2>
+
+<div class="main">
+
+    <!-- LEFT SIDE -->
+
+    <input type="text"
+    id="txt1"
+    value="1"
+    onkeyup="convertLeft()">
+
+    <select id="dd1"
+    onchange="convertLeft()">
+
+        <option>Kilometer</option>
+
+        <option>Meter</option>
+
+        <option>Centimeter</option>
+
+        <option>Millimeter</option>
+
+    </select>
+
+    <br><br>
+
+    <!-- RIGHT SIDE -->
+
+    <input type="text"
+    id="txt2"
+    onkeyup="convertRight()">
+
+    <select id="dd2"
+    onchange="convertLeft()">
+
+        <option>Kilometer</option>
+
+        <option selected>Meter</option>
+
+        <option>Centimeter</option>
+
+        <option>Millimeter</option>
+
+    </select>
+
+</div>
+
+<script>
+
+    // INITIAL CONVERSION
+
+    convertLeft();
+
+
+    // LEFT TO RIGHT
+
+    function convertLeft(){
+
+        let value =
+        document.getElementById("txt1").value;
+
+        if(value == "")
+            value = 0;
+
+        let from =
+        document.getElementById("dd1").value;
+
+        let to =
+        document.getElementById("dd2").value;
+
+        let meterValue =
+        convertToMeter(value,from);
+
+        let ans =
+        convertFromMeter(meterValue,to);
+
+        document.getElementById("txt2").value =
+        ans;
+    }
+
+
+    // RIGHT TO LEFT
+
+    function convertRight(){
+
+        let value =
+        document.getElementById("txt2").value;
+
+        if(value == "")
+            value = 0;
+
+        let from =
+        document.getElementById("dd2").value;
+
+        let to =
+        document.getElementById("dd1").value;
+
+        let meterValue =
+        convertToMeter(value,from);
+
+        let ans =
+        convertFromMeter(meterValue,to);
+
+        document.getElementById("txt1").value =
+        ans;
+    }
+
+
+    // CONVERT TO METER
+
+    function convertToMeter(value,unit){
+
+        if(unit == "Kilometer")
+            return value * 1000;
+
+        else if(unit == "Meter")
+            return value;
+
+        else if(unit == "Centimeter")
+            return value / 100;
+
+        else
+            return value / 1000;
+    }
+
+
+    // CONVERT FROM METER
+
+    function convertFromMeter(value,unit){
+
+        if(unit == "Kilometer")
+            return value / 1000;
+
+        else if(unit == "Meter")
+            return value;
+
+        else if(unit == "Centimeter")
+            return value * 100;
+
+        else
+            return value * 1000;
+    }
+
+</script>
+
+</body>
+</html>

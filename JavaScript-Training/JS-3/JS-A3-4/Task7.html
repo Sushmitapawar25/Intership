@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 7</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        h3{
+            margin-bottom:10px;
+        }
+
+        .section{
+            display:inline-block;
+            vertical-align:top;
+            margin-right:60px;
+        }
+
+        .btn-x{
+            background:red;
+            color:white;
+            border:none;
+            padding:2px 8px;
+            cursor:pointer;
+            margin-left:8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="section">
+    <h3>Applicants</h3>
+    <div id="applicantContainer"></div>
+</div>
+
+<div class="section">
+    <h3>Team ( Size : <span id="teamSize">0</span> )</h3>
+    <div id="teamContainer"></div>
+</div>
+
+<script>
+
+    let applicants = ["Jack", "Tim", "Bob", "Mary", "Anna", "Martha", "Steve", "Ed", "John", "Sid"];
+
+    let team = [];
+
+    let MAX = 5;
+
+    function createApplicants(){
+
+        let html = "";
+
+        for(let i=0; i<applicants.length; i++){
+
+            let disabled = "";
+
+            if(team.length >= MAX)
+                disabled = "disabled";
+
+            html += '<input type="checkbox" ';
+            html += 'id="a_' + applicants[i] + '" ';
+            html += 'value="' + applicants[i] + '" ';
+            html += 'onchange="addToTeam(\'' + applicants[i] + '\')" ';
+            html += disabled + '> ';
+            html += applicants[i] + '<br>';
+        }
+
+        document.getElementById("applicantContainer").innerHTML = html;
+    }
+
+    function createTeam(){
+
+        let html = "";
+
+        for(let i=0; i<team.length; i++){
+
+            html += team[i];
+            html += ' <button class="btn-x" ';
+            html += 'onclick="removeFromTeam(\'' + team[i] + '\')">x</button><br>';
+        }
+
+        document.getElementById("teamContainer").innerHTML = html;
+        document.getElementById("teamSize").innerHTML = team.length;
+    }
+
+    function addToTeam(name){
+
+        team.push(name);
+        applicants.splice(applicants.indexOf(name), 1);
+
+        createApplicants();
+        createTeam();
+    }
+
+    function removeFromTeam(name){
+
+        applicants.push(name);
+        team.splice(team.indexOf(name), 1);
+
+        createApplicants();
+        createTeam();
+    }
+
+    createApplicants();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People</title>
+    <style>
+        .table1{
+            border:2px solid black;
+            border-collapse: collapse;
+        }
+        .td1{
+            border:1px solid black;
+            text-align:center;
+        }
+        .th1{
+            background:black;
+            color:white;
+            border:1px solid white;
+            cursor:pointer;
+        }
+
+        .india{ color:blue; }
+        .usa{ color:green; }
+        .france{ color:red; }
+
+        .age1{ color:green; }
+        .age2{ color:blue; }
+        .age3{ color:red; }
+    </style>
+</head>
+
+<body>
+
+<h2>People</h2>
+
+<div id="people"></div>
+
+<button onclick="show()">Show</button>
+<button onclick="hide()">Hide</button>
+<button onclick="sortCol(0)">Sort Name</button>
+<button onclick="sortCol(1)">Sort Country</button>
+<button onclick="sortCol(2)">Sort Age</button>
+<button onclick="sortCountryName()">Country + Name</button>
+<button onclick="sortCountryAge()">Country + Age</button>
+<button onclick="filterCountry('India')">India</button>
+<button onclick="filterCountry('USA')">USA</button>
+<button onclick="filterCountry('France')">France</button>
+<button onclick="styleCountry()">Style Country</button>
+<button onclick="styleAge()">Style Age</button>
+
+<script>
+
+let styleC = false;
+let styleA = false;
+
+let people = [
+{"name":"Jack","country":"USA","age":35},
+{"name":"Amit","country":"India","age":38},
+{"name":"Edward","country":"USA","age":41},
+{"name":"Vishal","country":"India","age":30},
+{"name":"Annie","country":"USA","age":27},
+{"name":"Nick","country":"France","age":32},
+{"name":"Francis","country":"France","age":44},
+{"name":"Preeti","country":"India","age":25},
+{"name":"Sophie","country":"France","age":29},
+{"name":"Harpreet","country":"India","age":48},
+{"name":"Bob","country":"USA","age":21}
+];
+
+let displayData = [...people];
+
+function showTable(){
+
+    let arr = displayData.map(function(p){
+
+        let cls = getClass(p);
+
+        let str = "<tr class='"+cls+"'>";
+        str += "<td class='td1'>"+p.name+"</td>";
+        str += "<td class='td1'>"+p.country+"</td>";
+        str += "<td class='td1'>"+p.age+"</td>";
+        str += "</tr>";
+
+        return str;
+    });
+
+    let header = "<tr>";
+    header += "<th class='th1'>Name</th>";
+    header += "<th class='th1'>Country</th>";
+    header += "<th class='th1'>Age</th>";
+    header += "</tr>";
+
+    let html = "<table class='table1'>" + header + arr.join("") + "</table>";
+
+    document.getElementById("people").innerHTML = html;
+}
+
+// styling
+function getClass(p){
+
+    if(styleC){
+        if(p.country=="India") return "india";
+        if(p.country=="USA") return "usa";
+        if(p.country=="France") return "france";
+    }
+
+    if(styleA){
+        if(p.age<=30) return "age1";
+        else if(p.age<=40) return "age2";
+        else return "age3";
+    }
+
+    return "";
+}
+
+// buttons
+function show(){
+    displayData = [...people];
+    showTable();
+}
+
+function hide(){
+    document.getElementById("people").innerHTML="";
+}
+
+// sorting
+function sortCol(n){
+    if(n==0)
+        displayData.sort((a,b)=>a.name.localeCompare(b.name));
+    else if(n==1)
+        displayData.sort((a,b)=>a.country.localeCompare(b.country));
+    else
+        displayData.sort((a,b)=>a.age-b.age);
+
+    showTable();
+}
+
+function sortCountryName(){
+    displayData.sort((a,b)=>{
+        return a.country.localeCompare(b.country) || a.name.localeCompare(b.name);
+    });
+    showTable();
+}
+
+function sortCountryAge(){
+    displayData.sort((a,b)=>{
+        return a.country.localeCompare(b.country) || a.age-b.age;
+    });
+    showTable();
+}
+
+// filter
+function filterCountry(c){
+    displayData = people.filter(p=>p.country==c);
+    showTable();
+}
+
+// styling buttons
+function styleCountry(){
+    styleC = true;
+    styleA = false;
+    showTable();
+}
+
+function styleAge(){
+    styleC = false;
+    styleA = true;
+    showTable();
+}
+
+</script>
+
+</body>
+</html>

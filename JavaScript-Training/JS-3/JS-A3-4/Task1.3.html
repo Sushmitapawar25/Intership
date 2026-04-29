@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Modify the above function to take an array of JSOn
+         as parameter. The JSON has the fields txt and selected
+         (boolean). Those checkboxexwhose selected is true,
+         will be checked. -->
+
+        What do you know<br>
+        <div id="newcb"></div>
+
+        <script>
+            let cbValues1 = [{txt:"Javascript",selected:true},
+                            {txt:"React",selected:true},
+                            {txt:"Node",selected:false}];
+
+            document.getElementById("newcb").innerHTML = makeCheckboxes("xyz",cbValues1);
+            function makeCheckboxes(id, arr){
+                const arr1 = arr.map(function(val,index){
+                    let checkStr = '';
+                    if(val.selected)
+                    checkStr = 'checked';
+                    let s1 = '<input type="checkbox" '+checkStr+' id = "' + id +index + '">'+val.txt + '<br/>';
+                    return s1;
+                });
+                return arr1.join('');
+            }
+        </script>
+</body>
+</html>
