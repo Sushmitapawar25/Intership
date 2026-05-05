@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1.4</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="show"></div>
+    </div>
+
+    <script>
+
+        const products = [
+            { product: 'Pepsi', price: 25, discount: '0', supplier: 'Bob Inc.', delivery: true },
+            { product: 'Dairy Milk', price: 40, discount: '5', supplier: 'ABC Limited', delivery: true },
+            { product: 'Colgate', price: 80, discount: '2', supplier: 'James & Co.', delivery: false },
+            { product: 'Maggi', price: 15, discount: '5', supplier: 'ABC Limited', delivery: true },
+            { product: 'Snickers', price: 50, discount: '2', supplier: 'James & Co.', delivery: false },
+            { product: 'Nescafe', price: 10, discount: '0', supplier: 'ABC Limited', delivery: false },
+        ];
+
+        const discountOptions = [
+            { display: '2%', value: '2' },
+            { display: '5%', value: '5' },
+            { display: 'None', value: '0' }
+        ];
+
+        const suppliers = ['ABC Limited', 'James & Co.', 'Bob Inc.'];
+
+        const purchases = [
+            { purchaseId: 'PUR001', product: 'Pepsi', qty: 4 },
+            { purchaseId: 'PUR002', product: 'Colgate', qty: 3 },
+            { purchaseId: 'PUR003', product: 'Snickers', qty: 2 },
+            { purchaseId: 'PUR005', product: 'Nescafe', qty: 2 },
+            { purchaseId: 'PUR008', product: 'Dairy Milk', qty: 5 },
+            { purchaseId: 'PUR009', product: 'Maggi', qty: 5 },
+            { purchaseId: 'PUR011', product: 'Snickers', qty: 3 },
+            { purchaseId: 'PUR016', product: 'Nescafe', qty: 4 },
+            { purchaseId: 'PUR017', product: 'Dairy Milk', qty: 4 },
+            { purchaseId: 'PUR019', product: 'Pepsi', qty: 5 },
+            { purchaseId: 'PUR021', product: 'Colgate', qty: 4 },
+            { purchaseId: 'PUR023', product: 'Maggi', qty: 2 }
+        ];
+
+        let editIndex = -1;
+        let myproduct = {};
+        let errors = {};
+
+        let purchaseEditIndex = -1;
+        let mypurchase = {};
+        let purchaseErrors = {};
+
+        show();
+
+        function show(active = 0) {
+            let str = makeNavbar(active);
+            active === 1 ? str += showProductTable() : str += '';
+            active === 2 ? str += showForm() : str += '';
+            active === 3 ? str += showProductTable2() : str += '';
+            active === 4 ? str += showPurchaseForm() : str += '';
+            active === 5 ? str += showStocks() : str += '';
+            document.getElementById('show').innerHTML = str;
+        }
+
+        function showProducts() { editIndex = -1; myproduct = {}; show(1); }
+        function addProductForm() { show(2); }
+        function showProducts2() { show(3); }
+        function showPurchasePage() { purchaseEditIndex = -1; mypurchase = {}; purchaseErrors = {}; show(4); }
+        function showStocksPage() { show(5); }
+
+        function deleteProduct(index) { products.splice(index, 1); showProducts(); }
+        function editProduct(index) { editIndex = index; myproduct = products[index]; addProductForm(); }
+
+        function submitProduct() {
+            let prodName = document.getElementById('prodName').value;
+            let price = document.getElementById('price').value;
+            let supplier = document.getElementById('supplier').value;
+            let delivery = document.getElementById('delivery').checked;
+            let radios = document.getElementsByName('discount');
+            let discount = '';
+            for (let i = 0; i < radios.length; i++) { if (radios[i].checked) discount = radios[i].value; }
+            let pr = { product: prodName, price: price, discount: discount, supplier: supplier, delivery: delivery };
+            if (validate(pr)) { editIndex >= 0 ? products[editIndex] = pr : products.push(pr); showProducts(); }
+            else { myproduct = pr; addProductForm(); }
+        }
+
+        function validate(pr) {
+            errors.product = pr.product ? '' : 'Product name is mandatory';
+            errors.price = (+pr.price) ? '' : 'Enter the correct price';
+            errors.discount = pr.discount ? '' : 'Choose the discount';
+            errors.supplier = pr.supplier ? '' : 'Select the supplier';
+            return !(errors.product || errors.price || errors.discount || errors.supplier);
+        }
+
+        function showForm() {
+            let { product = '', price = '', discount = '', supplier = '', delivery = false } = myproduct;
+            let title = editIndex >= 0 ? 'Edit Product Details' : 'Add a Product';
+            let str = '<h3 class="text-center">' + title + '</h3>';
+            str += makeTextField('prodName', 'Product Name', 'Enter the product name', product, errors.product);
+            str += makeTextField('price', 'Price', 'Enter the price', price, errors.price);
+            str += makeRadios(discountOptions, 'Discount', 'discount', discount, errors.discount);
+            str += makeDropdown('supplier', suppliers, 'Select Supplier', supplier, errors.supplier);
+            str += makeCheckBox('delivery', 'Delivery Available', delivery);
+            str += '<button class="btn btn-primary" onclick="submitProduct()">Submit</button>';
+            return str;
+        }
+
+        function showProductTable() {
+            const arr = products.map((pr, index) => {
+                let { product, price, discount, supplier, delivery } = pr;
+                let str = '<div class="row border">';
+                str += '<div class="col-3">' + product + '</div>';
+                str += '<div class="col-1">' + price + '</div>';
+                str += '<div class="col-2">' + discount + '</div>';
+                str += '<div class="col-2">' + supplier + '</div>';
+                str += '<div class="col-2">' + delivery + '</div>';
+                str += '<div class="col-2"><button class="btn btn-secondary btn-sm" onclick="editProduct(' + index + ')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deleteProduct(' + index + ')">Delete</button></div>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<div class="row bg-dark text-white">';
+            table += '<div class="col-3" onclick="sort(0)" style="cursor:pointer">Product</div>';
+            table += '<div class="col-1" onclick="sort(1)" style="cursor:pointer">Price</div>';
+            table += '<div class="col-2" onclick="sort(2)" style="cursor:pointer">Discount</div>';
+            table += '<div class="col-2" onclick="sort(3)" style="cursor:pointer">Supplier</div>';
+            table += '<div class="col-2" onclick="sort(4)" style="cursor:pointer">Delivery</div>';
+            table += '<div class="col-2"></div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        function showProductTable2() {
+            const arr = products.map(pr => {
+                let { product, price, discount, supplier, delivery } = pr;
+                let str = '<div class="col-4 border p-2">';
+                str += '<span class="text-danger font-weight-bold">Product : </span>' + product + '<br>';
+                str += '<span class="text-danger font-weight-bold">Price : </span>' + price + '<br>';
+                str += '<span class="text-danger font-weight-bold">Discount : </span>' + discount + '<br>';
+                str += '<span class="text-danger font-weight-bold">Supplier : </span>' + supplier + '<br>';
+                str += '<span class="text-danger font-weight-bold">Delivery : </span>' + delivery + '<br>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<h3 class="text-center mt-3 mb-3">List of Products-2</h3>';
+            table += '<div class="row">' + arr.join('') + '</div>';
+            return table;
+        }
+
+        function showPurchaseForm() {
+            let { purchaseId = '', product = '', qty = '' } = mypurchase;
+            let title = purchaseEditIndex >= 0 ? 'Edit Purchase Details' : 'New Purchase Form';
+            let str = '<h3 class="text-center mt-3 mb-3">' + title + '</h3>';
+
+            // Task 1.4 - readonly when editing
+            let readonly = purchaseEditIndex >= 0 ? 'readonly' : '';
+            str += '<div class="form-group">';
+            str += '<label>Purchase Id</label>';
+            str += '<input type="text" class="form-control" id="purchaseId" placeholder="Enter the Purchase Id" value="' + purchaseId + '" ' + readonly + '>';
+            str += purchaseErrors.purchaseId ? '<span class="text-danger">' + purchaseErrors.purchaseId + '</span>' : '';
+            str += '</div>';
+
+            let productNames = products.map(p => p.product);
+            str += makeDropdown('purchaseProduct', productNames, 'Select Product being Purchased', product, purchaseErrors.product);
+            str += makeTextField('purchaseQty', 'Quantity', 'Enter the Quantity', qty, purchaseErrors.qty);
+            str += '<button class="btn btn-primary" onclick="submitPurchase()">Submit</button>';
+            return str;
+        }
+
+        function submitPurchase() {
+            let purchaseId = document.getElementById('purchaseId').value;
+            let product = document.getElementById('purchaseProduct').value;
+            let qty = document.getElementById('purchaseQty').value;
+            let pur = { purchaseId: purchaseId, product: product, qty: qty };
+            if (validatePurchase(pur)) { purchaseEditIndex >= 0 ? purchases[purchaseEditIndex] = pur : purchases.push(pur); showStocksPage(); }
+            else { mypurchase = pur; show(4); }
+        }
+
+
+        function validatePurchase(pur) {
+            purchaseErrors.purchaseId = pur.purchaseId ? '' : 'Purchase Id is mandatory';
+            purchaseErrors.product = pur.product ? '' : 'Select the product';
+            purchaseErrors.qty = pur.qty ? '' : 'Quantity is mandatory';
+
+
+            if (purchaseErrors.purchaseId === '' && purchaseEditIndex < 0) {
+                let exists = purchases.find(p => p.purchaseId === pur.purchaseId);
+                if (exists) purchaseErrors.purchaseId = 'Purchase Id should be unique';
+            }
+            return !(purchaseErrors.purchaseId || purchaseErrors.product || purchaseErrors.qty);
+        }
+
+        function deletePurchase(index) { purchases.splice(index, 1); showStocksPage(); }
+        function editPurchase(index) { purchaseEditIndex = index; mypurchase = purchases[index]; purchaseErrors = {}; show(4); }
+
+        function showStocks() {
+            let table = '<h3 class="text-center mt-3 mb-3">List of Purchases</h3>';
+            if (purchases.length === 0) return table + '<h5>No purchases yet</h5>';
+            const arr = purchases.map((pur, index) => {
+                let found = products.find(p => p.product === pur.product);
+                let price = found ? found.price : '-';
+                let supplier = found ? found.supplier : '-';
+                let str = '<div class="row border">';
+                str += '<div class="col-2">' + pur.purchaseId + '</div>';
+                str += '<div class="col-2">' + pur.product + '</div>';
+                str += '<div class="col-2">' + pur.qty + '</div>';
+                str += '<div class="col-2">' + price + '</div>';
+                str += '<div class="col-2">' + supplier + '</div>';
+                str += '<div class="col-2"><button class="btn btn-secondary btn-sm" onclick="editPurchase(' + index + ')">Edit</button> <button class="btn btn-danger btn-sm" onclick="deletePurchase(' + index + ')">Delete</button></div>';
+                str += '</div>';
+                return str;
+            });
+            table += '<div class="row bg-dark text-white" style="cursor:pointer">';
+            table += '<div class="col-2" onclick="sortPurchase(0)">Purchase Id</div>';
+            table += '<div class="col-2" onclick="sortPurchase(1)">Product</div>';
+            table += '<div class="col-2" onclick="sortPurchase(2)">Quantity</div>';
+            table += '<div class="col-2" onclick="sortPurchase(3)">Price</div>';
+            table += '<div class="col-2" onclick="sortPurchase(4)">Supplier</div>';
+            table += '<div class="col-2"></div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        function sortPurchase(colNo) {
+            switch (colNo) {
+                case 0: purchases.sort((p1, p2) => p1.purchaseId.localeCompare(p2.purchaseId)); break;
+                case 1: purchases.sort((p1, p2) => p1.product.localeCompare(p2.product)); break;
+                case 2: purchases.sort((p1, p2) => (+p1.qty) - (+p2.qty)); break;
+                case 3: purchases.sort((p1, p2) => { let f1 = products.find(p => p.product === p1.product); let f2 = products.find(p => p.product === p2.product); return (+f1.price) - (+f2.price); }); break;
+                case 4: purchases.sort((p1, p2) => { let f1 = products.find(p => p.product === p1.product); let f2 = products.find(p => p.product === p2.product); return f1.supplier.localeCompare(f2.supplier); }); break;
+            }
+            showStocksPage();
+        }
+
+        function sort(colNo) {
+            switch (colNo) {
+                case 0: products.sort((p1, p2) => p1.product.localeCompare(p2.product)); break;
+                case 1: products.sort((p1, p2) => (+p1.price) - (+p2.price)); break;
+                case 2: products.sort((p1, p2) => (+p1.discount) - (+p2.discount)); break;
+                case 3: products.sort((p1, p2) => p1.supplier.localeCompare(p2.supplier)); break;
+                case 4: products.sort((p1, p2) => p1.delivery ? 1 : -1); break;
+            }
+            showProducts();
+        }
+
+        function makeTextField(id, label, placeholder = '', value = '', err = '') {
+            let str = '<div class="form-group">';
+            str += '<label>' + label + '</label>';
+            str += '<input type="text" class="form-control" id="' + id + '" placeholder="' + placeholder + '" value="' + value + '">';
+            str += err ? '<span class="text-danger">' + err + '</span>' : '';
+            str += '</div>';
+            return str;
+        }
+
+        function makeNavbar(active = 0) {
+            let a1 = active === 1 ? 'active' : '', a2 = active === 2 ? 'active' : '', a3 = active === 3 ? 'active' : '', a4 = active === 4 ? 'active' : '', a5 = active === 5 ? 'active' : '';
+            let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
+            str += '<a class="navbar-brand" href="#">Store System</a>';
+            str += '<div class="collapse navbar-collapse show">';
+            str += '<ul class="navbar-nav">';
+            str += '<li class="nav-item ' + a1 + '"><a class="nav-link" onclick="showProducts()">Show Products</a></li>';
+            str += '<li class="nav-item ' + a2 + '"><a class="nav-link" onclick="addProductForm()">Add a Product</a></li>';
+            str += '<li class="nav-item ' + a3 + '"><a class="nav-link" onclick="showProducts2()">Show Products-2</a></li>';
+            str += '<li class="nav-item ' + a4 + '"><a class="nav-link" onclick="showPurchasePage()">Purchase</a></li>';
+            str += '<li class="nav-item ' + a5 + '"><a class="nav-link" onclick="showStocksPage()">Stocks</a></li>';
+            str += '</ul></div></nav>';
+            return str;
+        }
+
+        function makeRadios(arr, label, name, radioValue = '', err = '') {
+            const arr1 = arr.map(opt => {
+                let { display, value } = opt;
+                let checked = radioValue === value ? 'checked' : '';
+                let str = '<div class="form-check-inline">';
+                str += '<input class="form-check-input" type="radio" name="' + name + '" value="' + value + '" ' + checked + '>';
+                str += '<label class="form-check-label">' + display + '</label>';
+                str += '</div>';
+                return str;
+            });
+            let s1 = '<div class="form-check-inline"><label class="form-check-label">' + label + '</label></div>';
+            s1 += arr1.join('');
+            s1 += err ? '<br><span class="text-danger">' + err + '</span>' : '';
+            return s1;
+        }
+
+        function makeDropdown(id, options, header, selValue = '', err = '') {
+            const arr1 = options.map(opt => {
+                let selected = opt === selValue ? 'selected' : '';
+                return '<option ' + selected + '>' + opt + '</option>';
+            });
+            let selectedHeader = selValue ? '' : 'selected';
+            let s1 = '<div class="form-group">';
+            s1 += '<select id="' + id + '" class="form-control">';
+            s1 += '<option disabled value="" ' + selectedHeader + '>' + header + '</option>';
+            s1 += arr1.join('');
+            s1 += '</select>';
+            s1 += err ? '<span class="text-danger">' + err + '</span>' : '';
+            s1 += '</div>';
+            return s1;
+        }
+
+        function makeCheckBox(id, label, checked) {
+            let c1 = checked ? 'checked' : '';
+            let str = '<div class="form-check">';
+            str += '<input type="checkbox" class="form-check-input" id="' + id + '" ' + c1 + '>';
+            str += '<label class="form-check-label">' + label + '</label>';
+            str += '</div>';
+            return str;
+        }
+
+    </script>
+</body>
+
+</html>

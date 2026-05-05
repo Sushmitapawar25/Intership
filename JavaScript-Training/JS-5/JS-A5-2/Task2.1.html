@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2.1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div id="show"></div>
+</div>
+
+<script>
+
+const employees = [
+    {Name:'Anna',Email:'Anna45@gmail.com',Age:27,Dept:'Technology',Grad:'B.Tech',GradYear:2018,Grade:'A',WorkExp:'0-1 year'},
+    {Name:'Mary',Email:'mary16@gmail.com',Age:30,Dept:'Accounts',Grad:'B.Com',GradYear:2015,Grade:'B',WorkExp:'None'},
+    {Name:'Jack',Email:'jack@gmail.com',Age:33,Dept:'Operations',Grad:'BA',GradYear:2012,Grade:'C',WorkExp:'3+ years'},
+    {Name:'John',Email:'john@gmail.com',Age:24,Dept:'Technology',Grad:'B.Tech',GradYear:2021,Grade:'B',WorkExp:'None'},
+    {Name:'Edwards',Email:'edwards@gmail.com',Age:29,Dept:'Accounts',Grad:'B.Com',GradYear:2016,Grade:'A',WorkExp:'3+ years'},
+    {Name:'Tim',Email:'tim001@gmail.com',Age:31,Dept:'Operations',Grad:'BSc',GradYear:2013,Grade:'C',WorkExp:'0-1 year'},
+    {Name:'Julia',Email:'julia@gmail.com',Age:28,Dept:'Technology',Grad:'B.Tech',GradYear:2017,Grade:'B',WorkExp:'1-3 years'},
+    {Name:'Steve',Email:'steve@gmail.com',Age:25,Dept:'Operations',Grad:'BA',GradYear:2020,Grade:'D',WorkExp:'0-1 year'},
+    {Name:'Sam',Email:'sam77@gmail.com',Age:33,Dept:'HR',Grad:'BBA',GradYear:2013,Grade:'A',WorkExp:'1-3 years'}
+];
+
+const departments = ['HR','Accounts','Operations','Technology'];
+
+show();
+
+function show(active=1){
+    let str = makeNavbar(active);
+    active===1 ? str += showEmployeeTable() : str += '';
+    active===2 ? str += showEmployeeForm() : str += '';
+    active===3 ? str += showDepartments() : str += '';
+    active===4 ? str += showDeptForm() : str += '';
+    document.getElementById('show').innerHTML = str;
+}
+
+function showEmployees(){
+    show(1);
+}
+
+function addEmployeePage(){
+    show(2);
+}
+
+function showDepartmentPage(){
+    show(3);
+}
+
+function addDeptPage(){
+    show(4);
+}
+
+function showEmployeeTable(){
+    const arr = employees.map(emp => {
+        let {Name,Email,Age,Dept,Grad,GradYear,WorkExp} = emp;
+        let str = '<div class="row border">';
+        str += '<div class="col p-2">'+Name+'</div>';
+        str += '<div class="col p-2">'+Email+'</div>';
+        str += '<div class="col p-2">'+Age+'</div>';
+        str += '<div class="col p-2">'+Dept+'</div>';
+        str += '<div class="col p-2">'+Grad+'</div>';
+        str += '<div class="col p-2">'+WorkExp+'</div>';
+        str += '</div>';
+        return str;
+    });
+    let table = '<h3 class="text-center mb-3">List of Persons</h3>';
+    table += '<div class="row bg-dark text-white font-weight-bold">';
+    table += '<div class="col p-2">Name</div>';
+    table += '<div class="col p-2">Email</div>';
+    table += '<div class="col p-2">Age</div>';
+    table += '<div class="col p-2">Dept</div>';
+    table += '<div class="col p-2">Graduation</div>';
+    table += '<div class="col p-2">Work Exp</div>';
+    table += '</div>';
+    table += arr.join('');
+    return table;
+}
+
+function showEmployeeForm(){
+    let str = '';
+
+    str += makeTextField(
+        'empName',
+        'Employee Name',
+        'Enter the Employee Name'
+    );
+
+    str += makeTextField(
+        'email',
+        'Email',
+        'Enter the Email id'
+    );
+
+    str += makeTextField(
+        'age',
+        'Age',
+        'Enter the Age'
+    );
+
+    // Department dropdown
+    str += '<div class="form-group">';
+    str += '<label>Department</label>';
+    str += '<select class="form-control" id="dept">';
+    str += '<option value="">Select the Department</option>';
+    departments.forEach(d => {
+        str += '<option value="'+d+'">'+d+'</option>';
+    });
+    str += '</select>';
+    str += '</div>';
+
+    str += makeTextField(
+        'grad',
+        'Graduation Degree',
+        'What degree did you get in graduation'
+    );
+
+    // Graduation Year dropdown 2000 to 2020
+    str += '<div class="form-group">';
+    str += '<label>Graduation Year</label>';
+    str += '<select class="form-control" id="gradYear">';
+    str += '<option value="">Select the Graduation Year</option>';
+    for(let y=2000; y<=2020; y++){
+        str += '<option value="'+y+'">'+y+'</option>';
+    }
+    str += '</select>';
+    str += '</div>';
+
+    // Grade radios A B C D
+    str += '<div class="form-group">';
+    str += '<label>Overall Grade in Graduation</label>';
+    str += '<div>';
+    str += '<input type="radio" name="grade" value="A"> A &nbsp;';
+    str += '<input type="radio" name="grade" value="B"> B &nbsp;';
+    str += '<input type="radio" name="grade" value="C"> C &nbsp;';
+    str += '<input type="radio" name="grade" value="D"> D';
+    str += '</div>';
+    str += '</div>';
+
+    // Checkboxes
+    str += '<div class="form-check mb-2">';
+    str += '<input type="checkbox" class="form-check-input" id="postgrad">';
+    str += '<label class="form-check-label" for="postgrad">Are you a post graduate</label>';
+    str += '</div>';
+
+    str += '<div class="form-check mb-2">';
+    str += '<input type="checkbox" class="form-check-input" id="priorWork">';
+    str += '<label class="form-check-label" for="priorWork">Do you have prior work experience</label>';
+    str += '</div>';
+
+    // Work Experience radios
+    str += '<div class="form-group">';
+    str += '<label>Years of Work Experience</label>';
+    str += '<div>';
+    str += '<input type="radio" name="workyr" value="None"> None &nbsp;';
+    str += '<input type="radio" name="workyr" value="0-1 year"> 0-1 year &nbsp;';
+    str += '<input type="radio" name="workyr" value="1-3 years"> 1-3 years &nbsp;';
+    str += '<input type="radio" name="workyr" value="3+ years"> 3+ years';
+    str += '</div>';
+    str += '</div>';
+
+    str += '<button class="btn btn-primary" onclick="submitEmployee()">Submit</button>';
+    return str;
+}
+
+function submitEmployee(){
+    let name = document.getElementById('empName').value;
+    let email = document.getElementById('email').value;
+    let age = document.getElementById('age').value;
+    let dept = document.getElementById('dept').value;
+    let grad = document.getElementById('grad').value;
+    let gradYear = document.getElementById('gradYear').value;
+    let grade = document.querySelector('input[name="grade"]:checked');
+    let workyr = document.querySelector('input[name="workyr"]:checked');
+
+    let emp = {
+        Name: name,
+        Email: email,
+        Age: age,
+        Dept: dept,
+        Grad: grad,
+        GradYear: gradYear,
+        Grade: grade ? grade.value : '',
+        WorkExp: workyr ? workyr.value : 'None'
+    };
+    employees.push(emp);
+    showEmployees();
+}
+
+function showDepartments(){
+    if(departments.length===0){
+        return '<h5>No department has been defined</h5>';
+    }
+    const arr = departments.map(dep => {
+        return '<div class="border p-2">'+dep+'</div>';
+    });
+    let str = '<h3 class="text-center mb-3">List of Departments</h3>';
+    str += arr.join('');
+    return str;
+}
+
+function showDeptForm(){
+    let str = '';
+    str += makeTextField(
+        'dept',
+        'Department Name',
+        'Enter Department Name'
+    );
+    str += '<button class="btn btn-primary" onclick="submitDept()">Submit</button>';
+    return str;
+}
+
+function submitDept(){
+    let dept = document.getElementById('dept').value;
+    departments.push(dept);
+    showDepartmentPage();
+}
+
+function makeTextField(id,label,placeholder=''){
+    let str = '<div class="form-group">';
+    str += '<label>'+label+'</label>';
+    str += '<input type="text" class="form-control" id="'+id+'" placeholder="'+placeholder+'">';
+    str += '</div>';
+    return str;
+}
+
+function makeNavbar(active=1){
+    let active1 = active===1 ? 'active' : '';
+    let active2 = active===2 ? 'active' : '';
+    let active3 = active===3 ? 'active' : '';
+    let active4 = active===4 ? 'active' : '';
+    let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">';
+    str += '<a class="navbar-brand" href="#">Employee System</a>';
+    str += '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">';
+    str += '<span class="navbar-toggler-icon"></span>';
+    str += '</button>';
+    str += '<div class="collapse navbar-collapse show" id="navbarNav">';
+    str += '<ul class="navbar-nav">';
+    str += '<li class="nav-item '+active1+'">';
+    str += '<a class="nav-link" href="#" onclick="showEmployees()">Show Employees</a>';
+    str += '</li>';
+    str += '<li class="nav-item '+active2+'">';
+    str += '<a class="nav-link" href="#" onclick="addEmployeePage()">Add an Employee</a>';
+    str += '</li>';
+    str += '<li class="nav-item '+active3+'">';
+    str += '<a class="nav-link" href="#" onclick="showDepartmentPage()">Departments</a>';
+    str += '</li>';
+    str += '<li class="nav-item '+active4+'">';
+    str += '<a class="nav-link" href="#" onclick="addDeptPage()">Add a Dept</a>';
+    str += '</li>';
+    str += '</ul>';
+    str += '</div>';
+    str += '</nav>';
+    return str;
+}
+
+</script>
+
+</body>
+</html>

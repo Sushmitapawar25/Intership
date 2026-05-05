@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2.1</title>
+
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="show"></div>
+    </div>
+
+    <script>
+
+        const mobiles = [
+
+            {
+                image: "https://i.ibb.co/cLV4RvX/google-pixel-3.jpg",
+                RAM: ["8 GB"],
+                ROM: ["256 GB", "128 GB", "64 GB"],
+                name: "Pixel 3",
+                brand: "Google",
+                colors: ["Blue", "Black", "White"]
+            },
+
+            {
+                image: "https://i.ibb.co/160YSpk/mi-redmi-5.jpg",
+                RAM: ["6 GB", "4 GB"],
+                ROM: ["128 GB", "64 GB"],
+                name: "Redmi 5",
+                brand: "Xiaomi",
+                colors: ["Red", "Gold", "Black", "White"]
+            },
+
+            {
+                image: "https://i.ibb.co/y6dk6n1/mi-redmi-y2.jpg",
+                RAM: ["3 GB"],
+                ROM: ["32 GB"],
+                name: "Redmi Y2",
+                brand: "Xiaomi",
+                colors: ["Rose Gold", "Gold", "Black", "White"]
+            },
+
+            {
+                image: "https://i.ibb.co/McQMDF8/motorola-moto-e5-plus.jpg",
+                RAM: ["6 GB"],
+                ROM: ["128 GB", "64 GB"],
+                name: "Moto E5 Plus",
+                brand: "Motorola",
+                colors: ["Grey", "Black", "Pink"]
+            }
+
+        ];
+
+        let selectedIndex = 0;
+
+        let cart = [];
+
+        show();
+
+        function show(active = 1) {
+
+            let str = makeNavbar(active);
+
+            active === 1 ? str += showMobiles() : '';
+            active === 2 ? str += showCart() : '';
+
+            document.getElementById('show').innerHTML = str;
+        }
+
+        function showMobilePage() {
+            show(1);
+        }
+
+        function showCartPage() {
+            show(2);
+        }
+
+        function selectMobile(index) {
+
+            selectedIndex = index;
+
+            showMobilePage();
+        }
+
+        function addToCart() {
+
+            let ram = document.getElementById('ram').value;
+            let rom = document.getElementById('rom').value;
+            let color = document.getElementById('color').value;
+
+            if (ram === '' || rom === '' || color === '') {
+                alert('Please select RAM, ROM and Color');
+                return;
+            }
+
+            let mob = mobiles[selectedIndex];
+
+            let found = cart.find(function (m) {
+                return m.name === mob.name;
+            });
+
+            if (found) {
+                alert(mob.name + ' has already been added to the cart');
+                return;
+            }
+
+            cart.push(mob);
+
+            alert(mob.name + ' added to cart');
+        }
+
+        function removeFromCart(index) {
+
+            cart.splice(index, 1);
+
+            showCartPage();
+        }
+
+        function showMobiles() {
+
+            let left = '';
+
+            mobiles.map(function (mob, index) {
+
+                let bg = index === selectedIndex ?
+                    'bg-primary text-white'
+                    :
+                    '';
+
+                left += '<div class="row border p-2 ' + bg + '" onclick="selectMobile(' + index + ')">';
+
+                left += '<div class="col-4">';
+                left += '<img src="' + mob.image + '" width="80" height="100">';
+                left += '</div>';
+
+                left += '<div class="col-8">';
+
+                left += '<h5>' + mob.name + '</h5>';
+
+                left += '<div>' + mob.brand + '</div>';
+
+                left += '</div>';
+
+                left += '</div>';
+
+            });
+
+            let mob = mobiles[selectedIndex];
+
+            let right = '';
+
+            right += '<div class="border p-3 text-center">';
+
+            right += '<img src="' + mob.image + '" width="220" height="250">';
+
+            right += '<h4 class="mt-2">' + mob.name + '</h4>';
+
+            right += '<h6>' + mob.brand + '</h6>';
+
+            right += makeDropdown(
+                'ram',
+                'Select RAM',
+                mob.RAM
+            );
+
+            right += makeDropdown(
+                'rom',
+                'Select ROM',
+                mob.ROM
+            );
+
+            right += makeDropdown(
+                'color',
+                'Select Color',
+                mob.colors
+            );
+
+            right += '<button class="btn btn-primary" onclick="addToCart()">Add To Cart</button>';
+
+            right += '</div>';
+
+            let str = '';
+
+            str += '<div class="row">';
+
+            str += '<div class="col-6">';
+            str += left;
+            str += '</div>';
+
+            str += '<div class="col-6">';
+            str += right;
+            str += '</div>';
+
+            str += '</div>';
+
+            return str;
+        }
+
+        function showCart() {
+
+            let str = '<h3 class="text-center mb-3">Cart</h3>';
+
+            if (cart.length === 0) {
+
+                str += '<h5>No Mobile in Cart</h5>';
+
+                return str;
+            }
+
+            str += '<div class="row bg-dark text-white">';
+
+            str += '<div class="col-3 p-2">Image</div>';
+            str += '<div class="col-3 p-2">Name</div>';
+            str += '<div class="col-3 p-2">Brand</div>';
+            str += '<div class="col-3 p-2"></div>';
+
+            str += '</div>';
+
+            cart.map(function (mob, index) {
+
+                str += '<div class="row border">';
+                str += '<div class="col-3 p-2">';
+                str += '<img src="' + mob.image + '" width="70" height="80">';
+                str += '</div>';
+                str += '<div class="col-3 p-4">';
+                str += mob.name;
+                str += '</div>';
+                str += '<div class="col-3 p-4">';
+                str += mob.brand;
+                str += '</div>';
+                str += '<div class="col-3 p-3">';
+                str += '<button class="btn btn-danger btn-sm" onclick="removeFromCart(' + index + ')">Remove From Cart</button>';
+                str += '</div>';
+                str += '</div>';
+            });
+            return str;
+        }
+
+        function makeDropdown(id, label, arr) {
+            let str = '';
+            str += '<div class="form-group text-left">';
+            str += '<label><b>' + label + '</b></label>';
+            str += '<select class="form-control" id="' + id + '">';
+            str += '<option value="">Select</option>';
+
+            arr.map(function (ele) {
+                str += '<option>' + ele + '</option>';
+            });
+            str += '</select>';
+            str += '</div>';
+            return str;
+        }
+
+        function makeNavbar(active = 1) {
+            let active1 = active === 1 ? 'active' : '';
+            let active2 = active === 2 ? 'active' : '';
+            let str = '';
+            str += '<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">';
+            str += '<a class="navbar-brand" href="#">MobileStore</a>';
+            str += '<div class="navbar-nav">';
+            str += '<a class="nav-item nav-link ' + active1 + '" href="#" onclick="showMobilePage()">Mobiles</a>';
+            str += '<a class="nav-item nav-link ' + active2 + '" href="#" onclick="showCartPage()">Cart</a>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+
+    </script>
+
+</body>
+
+</html>

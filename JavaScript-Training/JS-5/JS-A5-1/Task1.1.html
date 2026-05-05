@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://cdn.js.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="show">
+
+            <!-- Step 1 using html -->
+            <!-- <div class="row bg-dark text-white">
+                <div class="col-8">Product</div>
+                <div class="col-4">Price</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Pepsi</div>
+                <div class="col-4">25</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Dairy Milk</div>
+                <div class="col-4">40</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Colgate</div>
+                <div class="col-4">80</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Maggi</div>
+                <div class="col-4">15</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Snickers</div>
+                <div class="col-4">50</div>
+            </div>
+            <div class="row border">
+                <div class="col-8">Nescafe</div>
+                <div class="col-4">10</div>
+            </div> -->
+
+            <!-- step 2  -->
+            <!-- <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" class="form-control" id="prodName" 
+                placeholder="Enter the product name">
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="text" class="form-control" id="price" 
+                placeholder="Enter the price">
+            </div>
+            <button class="btn btn-primary" onclick="submitProduct()">Submit</button> -->
+
+            <!-- Step 3 Navbar -->
+            <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Store System</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" onclick="showProducts()">Show Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="addProductForm()">Add a Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> -->
+
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {product:'Pepsi',price:25},
+            {product:'Dairy Milk',price:40},
+            {product:'Colgate',price:80},
+            {product:'Maggi',price:15},
+            {product:'Snickers',price:50},
+            {product:'Nescafe',price:10},
+        ];
+        show();
+        // showForm();
+        // showNavbar();
+        // function show(){
+        //     let html = showProducts();
+        //     console.log(html);
+        //     document.getElementById('show').innerHTML = html;
+        // }
+
+        function show(active=0){
+            let str = makeNavbar(active);
+            active === 1 ? str+= showProductTable() : str+= '';
+            active === 2 ? str+= showForm() : str+='';
+            console.log(str);
+            document.getElementById('show').innerHTML = str;
+        }
+        function  showProducts(){
+            show(1);
+        }
+        function addProductForm(){
+            show(2);
+        }
+        function submitProduct(){
+            let prodName = document.getElementById('prodName').value;
+            let price = document.getElementById('price').value;
+            let pr = {product:prodName, price:price};
+            products.push(pr);
+            showProducts();
+        }
+        function showForm(){
+            let str = makeTextField('prodName','Product Name','ENter the product name');
+            str += makeTextField('price','Price','Enter the price');
+            str += '<button class="btn btn-primary" onclick="submitProduct()">Submit</button>';
+            // console.log(str);
+            // document.getElementById('show').innerHTML = str;
+            return (str);
+        }
+        // step 1 
+        function showProductTable(){
+            const arr = products.map(pr => {
+                let {product,price} = pr;
+                let str = '<div class="row border">';
+                str += '<div class="col-8">'+product+'</div>';
+                str += '<div class="col-4">'+price+'</div>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<div class="row bg-dark text-white">';
+            table += '<div class="col-8">Product</div>';
+            table += '<div class="col-4">Price</div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        // step 2
+        function makeTextField(id,label,placeholder=''){
+            let str  = '<div class="form-group">';
+            str += '<label>'+label+'</label>'
+            str += '<input type="text" class="form-control" id="'+id+'" placeholder="'+placeholder+'">';
+            str += '</div>';
+            return str;
+        }
+        // step 3 Navbar
+        function makeNavbar(active=0){
+            let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
+            str += '<a class="navbar-brand" href="#">Store System</a>';
+            str += '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">';
+            str += '<span class="navbar-toggler-icon"></span>';
+            str += '</button>';
+            str += '<div class="collapse navbar-collapse" id="navbarNavDropdown">';
+            str += '<ul class="navbar-nav">';
+            let active1 = active===1 ? 'active' : '';
+            let active2 = active===2 ? 'active' : '';
+            str += '<li class="nav-item '+active1+'">';
+            str += '<a class="nav-link" onclick="showProducts()">Show Products</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active2+'">';
+            str += '<a class="nav-link" onclick="addProductForm()">Add a Product</a>';
+            str += '</li>';
+            str += '</ul>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+        
+    </script>
+</body>
+</html>

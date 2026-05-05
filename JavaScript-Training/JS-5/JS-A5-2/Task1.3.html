@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="show"></div>
+    </div>
+
+    <script>
+        const products = [
+            {product:'Pepsi',price:25,discount:'0',supplier:'Bob Inc.',delivery:true},
+            {product:'Dairy Milk',price:40,discount:'5',supplier:'ABC Limited',delivery:true},
+            {product:'Colgate',price:80,discount:'2',supplier:'James & Co.',delivery:false},
+            {product:'Maggi',price:15,discount:'5',supplier:'ABC Limited',delivery:true},
+            {product:'Snickers',price:50,discount:'2',supplier:'James & Co.',delivery:false},
+            {product:'Nescafe',price:10,discount:'0',supplier:'ABC Limited',delivery:false},
+        ];
+
+        const discountOptions = [
+            {display:'2%',value:'2'},
+            {display:'5%',value:'5'},
+            {display:'None',value:'0'}
+        ];
+
+        const suppliers = ['ABC Limited','James & Co.','Bob Inc.'];
+
+    
+        const purchases = [];
+
+        show();
+
+        function show(active=0){
+            let str = makeNavbar(active);
+            active === 1 ? str += showProductTable() : str += '';
+            active === 2 ? str += showForm() : str += '';
+            active === 3 ? str += showProductTable2() : str += '';
+            active === 4 ? str += showPurchaseForm() : str += '';
+            active === 5 ? str += showStocks() : str += '';
+            document.getElementById('show').innerHTML = str;
+        }
+
+        function showProducts(){
+            show(1);
+        }
+        function addProductForm(){
+            show(2);
+        }
+        function showProducts2(){
+            show(3);
+        }
+        function showPurchasePage(){
+            show(4);
+        }
+        function showStocksPage(){
+            show(5);
+        }
+
+        function submitProduct(){
+            let prodName = document.getElementById('prodName').value;
+            let price = document.getElementById('price').value;
+            let supplier = document.getElementById('supplier').value;
+            let delivery = document.getElementById('delivery').checked;
+            let radios = document.getElementsByName('discount');
+            let discount = '';
+            for(let i=0; i<radios.length; i++){
+                if(radios[i].checked)
+                    discount = radios[i].value;
+            }
+            let pr = {product:prodName, price:price, discount:discount, supplier:supplier, delivery:delivery};
+            products.push(pr);
+            showProducts();
+        }
+
+        function showForm(){
+            let str = makeTextField('prodName','Product Name','Enter the product name');
+            str += makeTextField('price','Price','Enter the price');
+            str += makeRadios(discountOptions,'Discount','discount');
+            str += makeDropdown('supplier',suppliers,'Select Supplier');
+            str += makeCheckBox('delivery','Delivery Available');
+            str += '<button class="btn btn-primary" onclick="submitProduct()">Submit</button>';
+            return str;
+        }
+
+        function showProductTable(){
+            const arr = products.map(pr => {
+                let {product,price,discount,supplier,delivery} = pr;
+                let str = '<div class="row border">';
+                str += '<div class="col-3">'+product+'</div>';
+                str += '<div class="col-1">'+price+'</div>';
+                str += '<div class="col-2">'+discount+'</div>';
+                str += '<div class="col-3">'+supplier+'</div>';
+                str += '<div class="col-2">'+delivery+'</div>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<div class="row bg-dark text-white">';
+            table += '<div class="col-3" onclick="sort(0)">Product</div>';
+            table += '<div class="col-1" onclick="sort(1)">Price</div>';
+            table += '<div class="col-2" onclick="sort(2)">Discount</div>';
+            table += '<div class="col-3" onclick="sort(3)">Supplier</div>';
+            table += '<div class="col-2" onclick="sort(4)">Delivery</div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        function showProductTable2(){
+            const arr = products.map(pr => {
+                let {product,price,discount,supplier,delivery} = pr;
+                let str = '<div class="col-4 border p-2">';
+                str += '<span class="text-danger font-weight-bold">Product : </span>' + product + '<br>';
+                str += '<span class="text-danger font-weight-bold">Price : </span>' + price + '<br>';
+                str += '<span class="text-danger font-weight-bold">Discount : </span>' + discount + '<br>';
+                str += '<span class="text-danger font-weight-bold">Supplier : </span>' + supplier + '<br>';
+                str += '<span class="text-danger font-weight-bold">Delivery : </span>' + delivery + '<br>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<h3 class="text-center mt-3 mb-3">List of Products-2</h3>';
+            table += '<div class="row">';
+            table += arr.join('');
+            table += '</div>';
+            return table;
+        }
+        function showPurchaseForm(){
+            let str = '<h3 class="text-center mt-3 mb-3">New Purchase Form</h3>';
+
+            // product names from products array as dropdown
+            let productNames = products.map(p => p.product);
+            str += makeDropdown('purchaseProduct', productNames, 'Select Product');
+
+            str += makeTextField('purchaseQty','Quantity','Enter the quantity');
+            str += '<button class="btn btn-primary" onclick="submitPurchase()">Submit</button>';
+            return str;
+        }
+
+        function submitPurchase(){
+            let product  = document.getElementById('purchaseProduct').value;
+            let quantity = document.getElementById('purchaseQty').value;
+
+            let purchase = {
+                product  : product,
+                quantity : quantity
+            };
+            purchases.push(purchase);
+            showStocksPage();
+        }
+
+        function showStocks(){
+            if(purchases.length === 0){
+                return '<h3 class="text-center mt-3 mb-3">List of Purchases</h3><h5>No purchases yet</h5>';
+            }
+
+            const arr = purchases.map(pur => {
+                // find price and supplier from products array
+                let found = products.find(p => p.product === pur.product);
+                let price    = found ? found.price    : '-';
+                let supplier = found ? found.supplier : '-';
+
+                let str = '<div class="row border">';
+                str += '<div class="col-3">'+pur.product+'</div>';
+                str += '<div class="col-3">'+pur.quantity+'</div>';
+                str += '<div class="col-3">'+price+'</div>';
+                str += '<div class="col-3">'+supplier+'</div>';
+                str += '</div>';
+                return str;
+            });
+
+            let table = '<h3 class="text-center mt-3 mb-3">List of Purchases</h3>';
+            table += '<div class="row bg-dark text-white">';
+            table += '<div class="col-3">Product</div>';
+            table += '<div class="col-3">Quantity</div>';
+            table += '<div class="col-3">Price</div>';
+            table += '<div class="col-3">Supplier</div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        function makeTextField(id,label,placeholder=''){
+            let str = '<div class="form-group">';
+            str += '<label>'+label+'</label>';
+            str += '<input type="text" class="form-control" id="'+id+'" placeholder="'+placeholder+'">';
+            str += '</div>';
+            return str;
+        }
+
+        function makeNavbar(active=0){
+            let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
+            str += '<a class="navbar-brand" href="#">Store System</a>';
+            str += '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">';
+            str += '<span class="navbar-toggler-icon"></span>';
+            str += '</button>';
+            str += '<div class="collapse navbar-collapse" id="navbarNavDropdown">';
+            str += '<ul class="navbar-nav">';
+            let active1 = active===1 ? 'active' : '';
+            let active2 = active===2 ? 'active' : '';
+            let active3 = active===3 ? 'active' : '';
+            let active4 = active===4 ? 'active' : '';
+            let active5 = active===5 ? 'active' : '';
+            str += '<li class="nav-item '+active1+'">';
+            str += '<a class="nav-link" onclick="showProducts()">Show Products</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active2+'">';
+            str += '<a class="nav-link" onclick="addProductForm()">Add a Product</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active3+'">';
+            str += '<a class="nav-link" onclick="showProducts2()">Show Products-2</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active4+'">';
+            str += '<a class="nav-link" onclick="showPurchasePage()">Purchase</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active5+'">';
+            str += '<a class="nav-link" onclick="showStocksPage()">Stocks</a>';
+            str += '</li>';
+            str += '</ul>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+
+        function makeRadios(arr,label,name){
+            const arr1 = arr.map(opt => {
+                let {display,value} = opt;
+                let str = '<div class="form-check-inline">';
+                str += '<input class="form-check-input" type="radio" name="'+name+'" value="'+value+'">';
+                str += '<label class="form-check-label">'+display+'</label>';
+                str += '</div>';
+                return str;
+            });
+            let s1 = '<div class="form-check-inline">';
+            s1 += '<label class="form-check-label">'+label+'</label>';
+            s1 += '</div>';
+            s1 += arr1.join('');
+            return s1;
+        }
+
+        function makeDropdown(id,options,header){
+            const arr1 = options.map(opt => {
+                return '<option>'+opt+'</option>';
+            });
+            let s1 = '<div class="form-group">';
+            s1 += '<select id="'+id+'" class="form-control">';
+            s1 += '<option disabled value="" selected>'+header+'</option>';
+            s1 += arr1.join('');
+            s1 += '</select>';
+            s1 += '</div>';
+            return s1;
+        }
+
+        function makeCheckBox(id,label){
+            let str = '<div class="form-check">';
+            str += '<input type="checkbox" class="form-check-input" id="'+id+'">';
+            str += '<label class="form-check-label">'+label+'</label>';
+            str += '</div>';
+            return str;
+        }
+
+        function sort(colNo){
+            switch(colNo){
+                case 0 : products.sort((p1,p2) => p1.product.localeCompare(p2.product)); break;
+                case 1 : products.sort((p1,p2) => (+p1.discount) - (+p2.price)); break;
+                case 2 : products.sort((p1,p2) => (+p1.discount) - (+p2.discount)); break;
+                case 3 : products.sort((p1,p2) => p1.supplier.localeCompare(p2.supplier)); break;
+                case 4 : products.sort((p1,p2) => p1.delivery ? 1 : -1); break;
+            }
+            showProducts();
+        }
+
+    </script>
+</body>
+</html>

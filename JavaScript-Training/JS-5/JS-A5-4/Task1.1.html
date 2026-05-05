@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shirt Store</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <div id="show"></div>
+    </div>
+
+    <script>
+
+        const shirts = [
+
+            {
+                image: "https://i.ibb.co/VvGjZnK/s1.jpg",
+                sizes: ["S", "L", "XXL"],
+                brand: "Van Heusen",
+                price: 1299,
+                discount: "10%"
+            },
+
+            {
+                image: "https://i.ibb.co/XyXsX4w/s2.jpg",
+                sizes: ["XS", "M", "XXL"],
+                brand: "Louis Phillipe",
+                price: 1499,
+                discount: "20%"
+            },
+
+            {
+                image: "https://i.ibb.co/LZbmJyK/s3.jpg",
+                sizes: ["XS", "S", "L", "XXL"],
+                brand: "Arrow",
+                price: 1199,
+                discount: "30%"
+            },
+
+            {
+                image: "https://i.ibb.co/swFq71s/s4.jpg",
+                sizes: ["S", "M", "L"],
+                brand: "Blackberrys",
+                price: 849,
+                discount: "10%"
+            }
+
+        ];
+
+        const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
+
+        const discountOptions = ["10%", "20%", "30%", "None"];
+
+        const brandOptions = [
+            "Van Heusen",
+            "Louis Phillipe",
+            "Arrow",
+            "Blackberrys",
+            "Allen Solly"
+        ];
+
+        let selectedIndex = 0;
+        let editIndex = -1;
+
+        show();
+
+
+
+        function show(active = 1) {
+
+            let str = makeNavbar(active);
+
+            active === 1 ? str += showShirts() : str += '';
+
+            active === 2 ? str += showForm() : str += '';
+
+            document.getElementById('show').innerHTML = str;
+        }
+
+        function showShirtPage() {
+            editIndex = -1;
+            show(1);
+        }
+
+        function addShirtPage() {
+            editIndex = -1;
+            show(2);
+        }
+
+        function showShirts() {
+            let left = '<div class="col-6 border p-0">';
+            shirts.map((shirt, index) => {
+                let bg = index === selectedIndex ? 'bg-primary text-white' : '';
+                left += '<div class="row border m-0 ' + bg + '" onclick="selectShirt(' + index + ')" style="cursor:pointer">';
+                left += '<div class="col-4 p-2 text-center">';
+                left += '<img src="' + shirt.image + '" width="60" height="80">';
+                left += '</div>';
+                left += '<div class="col-8 p-2">';
+                left += '<div><b>Brand :</b> ' + shirt.brand + '</div>';
+                left += '<div><b>Price :</b> ' + shirt.price + '</div>';
+                left += '<div><b>Sizes :</b> ' + shirt.sizes.join(",") + '</div>';
+                left += '<div><b>Discount :</b> ' + shirt.discount + '</div>';
+                left += '</div>';
+                left += '</div>';
+
+            });
+
+            left += '</div>';
+            let shirt = shirts[selectedIndex];
+            let right = '<div class="col-6 border text-center p-4">';
+            right += '<img src="' + shirt.image + '" width="200" height="260"><br><br>';
+            right += '<h4>' + shirt.brand + '</h4>';
+            right += '<button class="btn btn-primary btn-sm" onclick="editShirt(' + selectedIndex + ')">Edit</button>';
+            right += '</div>';
+            return '<div class="row">' + left + right + '</div>';
+        }
+
+        function selectShirt(index) {
+            selectedIndex = index;
+            show(1);
+        }
+
+        function editShirt(index) {
+            editIndex = index;
+            show(2);
+        }
+        function showForm() {
+            let shirt = {
+                image: '',
+                price: '',
+                brand: '',
+                sizes: [],
+                discount: ''
+            };
+            if (editIndex >= 0) {
+                shirt = shirts[editIndex];
+            }
+            let str = '';
+            str += '<h3>' + (editIndex >= 0 ? 'Edit Shirt Details' : 'Add a New Shirt') + '</h3>';
+            str += '<div class="form-group">';
+            str += '<label>Product Image</label>';
+            str += '<input type="text" class="form-control" id="image" value="' + shirt.image + '" placeholder="Enter URL of product image">';
+            str += '</div>';
+            str += '<div class="form-group">';
+            str += '<label>Price</label>';
+            str += '<input type="text" class="form-control" id="price" value="' + shirt.price + '" placeholder="Enter price">';
+            str += '</div>';
+
+            str += '<select class="form-control mb-2" id="brand">';
+
+            str += '<option value="">Select Brand</option>';
+
+            brandOptions.map(br => {
+
+                let sel = shirt.brand === br ? 'selected' : '';
+
+                str += '<option ' + sel + '>' + br + '</option>';
+
+            });
+
+            str += '</select>';
+
+            str += '<label><b>Choose Size options</b></label><br>';
+
+            sizeOptions.map(sz => {
+
+                let checked = shirt.sizes.includes(sz) ? 'checked' : '';
+
+                str += '<input type="checkbox" class="size" value="' + sz + '" ' + checked + '> ' + sz + '<br>';
+
+            });
+
+            str += '<label><b>Choose Discount</b></label><br>';
+
+            discountOptions.map(dis => {
+
+                let checked = shirt.discount === dis ? 'checked' : '';
+
+                str += '<input type="radio" name="discount" value="' + dis + '" ' + checked + '> ' + dis + ' ';
+
+            });
+            str += '<br>';
+            str += '<button class="btn btn-primary mt-2" onclick="submitShirt()">';
+            str += editIndex >= 0 ? 'Update' : 'Add Product';
+            str += '</button>';
+            str += '<div id="error" class="text-danger mt-2"></div>';
+            return str;
+        }
+
+        function submitShirt() {
+
+            let image = document.getElementById('image').value;
+            let price = document.getElementById('price').value;
+            let brand = document.getElementById('brand').value;
+            let sizes = document.getElementsByClassName('size');
+
+            let sizeArr = [];
+            for (let i = 0; i < sizes.length; i++) {
+
+                sizes[i].checked ? sizeArr.push(sizes[i].value) : '';
+            }
+            let discounts = document.getElementsByName('discount');
+
+            let discount = '';
+
+            for (let i = 0; i < discounts.length; i++) {
+                discounts[i].checked ? discount = discounts[i].value : '';
+            }
+            let error = '';
+            image === '' ? error += 'Image is mandatory<br>' : '';
+            price === '' ? error += 'Price is mandatory<br>' : '';
+            brand === '' ? error += 'Brand is mandatory<br>' : '';
+            sizeArr.length === 0 ? error += 'Select atleast one size<br>' : '';
+            discount === '' ? error += 'Select one discount option<br>' : '';
+            if (error !== '') {
+                document.getElementById('error').innerHTML = error;
+                return;
+            }
+            let shirt = {
+                image: image,
+                price: price,
+                brand: brand,
+                sizes: sizeArr,
+                discount: discount
+            };
+            if (editIndex >= 0) {
+                shirts[editIndex] = shirt;
+                selectedIndex = editIndex;
+            }
+            else {
+                shirts.push(shirt);
+                selectedIndex = shirts.length - 1;
+            }
+            editIndex = -1;
+            show(1);
+        }
+
+        function makeNavbar(active = 1) {
+            let active1 = active === 1 ? 'active' : '';
+            let active2 = active === 2 ? 'active' : '';
+            let str = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">';
+            str += '<a class="navbar-brand" href="#">ShirtSite</a>';
+            str += '<div class="navbar-nav">';
+            str += '<a class="nav-item nav-link ' + active1 + '" href="#" onclick="showShirtPage()">Shirts</a>';
+            str += '<a class="nav-item nav-link ' + active2 + '" href="#" onclick="addShirtPage()">Add a Shirt</a>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+
+    </script>
+
+</body>
+
+</html>

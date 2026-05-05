@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://cdn.js.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="show">
+
+        </div>
+    </div>
+
+    <script>
+        const Employees = [
+            {Name:'Anna',Email:'Anna45@gmail.com',Age:27},
+            {Name:'Mary',Email:'mary16@gmail.com',Age:30},
+            {Name:'Jack',Email:'jack@gmail.com',Age:33},
+            {Name:'John',Email:'john@gmail.com',Age:24},
+            {Name:'Edwards',Email:'edwards@gmail.com',Age:29},
+            {Name:'Tim',Email:'tim001@gmail.com',Age:31},
+            {Name:'Julia',Email:'julia@gmail.com',Age:28},
+            {Name:'Steve',Email:'steve@gmail.com',Age:25},
+            {Name:'Sam',Email:'sam77@gmail.com',Age:33},
+        ];
+        show();
+
+
+        function show(active=0){
+            let str = makeNavbar(active);
+            active === 1 ? str+= showEmployeeTable() : str+= '';
+            active === 2 ? str+= showForm() : str+='';
+            console.log(str);
+            document.getElementById('show').innerHTML = str;
+        }
+        function  showEmployee(){
+            show(1);
+        }
+        function addEmployeeForm(){
+            show(2);
+        }
+        
+        function submitEmployee(){
+            let name = document.getElementById('empName').value;
+            let email = document.getElementById('email').value;
+            let age = document.getElementById('age').value;
+            let emp = {Name:name, Email:email, Age:age};
+            Employees.push(emp);
+            showEmployee();
+        }
+        function showForm(){
+            let str = makeTextField('empName','Employee Name','Enter the Employee name');
+            str += makeTextField('email','Email','Enter Email');
+            str += makeTextField('age','Age','Enter Age');
+            str += '<button class="btn btn-primary" onclick="submitEmployee()">Submit</button>';
+            return (str);
+        }
+
+        // step 1 
+        function showEmployeeTable(){
+            const arr = Employees.map(emp => {
+                let {Name,Email,Age} = emp;
+                let str = '<div class="row border">';
+                str += '<div class="col-3 p-2">'+Name+'</div>';
+                str += '<div class="col-6 p-2">'+Email+'</div>';
+                str += '<div class="col-3 p-2">'+Age+'</div>';
+                str += '</div>';
+                return str;
+            });
+            let table = '<h3 class="text-center">List of Persons</h3>';
+            table += '<div class="row bg-dark text-white">';
+            table += '<div class="col-3 p-2">Name</div>';
+            table += '<div class="col-6 p-2">Email</div>';
+            table += '<div class="col-3 p-2">Age</div>';
+            table += '</div>';
+            table += arr.join('');
+            return table;
+        }
+
+        // step 2
+        function makeTextField(id,label,placeholder=''){
+            let str  = '<div class="form-group">';
+            str += '<label>'+label+'</label>'
+            str += '<input type="text" class="form-control" id="'+id+'" placeholder="'+placeholder+'">';
+            str += '</div>';
+            return str;
+        }
+        
+        // step 3 Navbar
+        function makeNavbar(active=0){
+            let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
+            str += '<a class="navbar-brand" href="#">Employee System</a>';
+            str += '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">';
+            str += '<span class="navbar-toggler-icon"></span>';
+            str += '</button>';
+            str += '<div class="collapse navbar-collapse" id="navbarNavDropdown">';
+            str += '<ul class="navbar-nav">';
+            let active1 = active===1 ? 'active' : '';
+            let active2 = active===2 ? 'active' : '';
+            str += '<li class="nav-item '+active1+'">';
+            str += '<a class="nav-link" onclick="showEmployee()">Show Employee</a>';
+            str += '</li>';
+            str += '<li class="nav-item '+active2+'">';
+            str += '<a class="nav-link" onclick="addEmployeeForm()">Add an Employee</a>';
+            str += '</li>';
+            str += '</ul>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+        
+    </script>
+</body>
+</html>

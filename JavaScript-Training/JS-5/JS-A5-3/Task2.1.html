@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2.1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="show"></div>
+    </div>
+
+    <script>
+
+        const employees = [
+            { name: 'Anna', email: 'Anna45@email.com', age: 27, dept: 'Technology', gradCourse: 'B.Tech', gradYear: 2015, gradPerf: 'Good', postgrad: false, workBefore: true, workEx: '0-1 year' },
+            { name: 'John', email: 'john@email.com', age: 24, dept: 'Technology', gradCourse: 'B.Tech', gradYear: 2015, gradPerf: 'Good', postgrad: false, workBefore: false, workEx: 'None' },
+            { name: 'Edwards', email: 'edwards@email.com', age: 29, dept: 'Accounts', gradCourse: 'B.Com', gradYear: 2015, gradPerf: 'Excellent', postgrad: true, workBefore: true, workEx: '3+ years' },
+            { name: 'Julia', email: 'julia@email.com', age: 28, dept: 'Technology', gradCourse: 'B.Tech', gradYear: 2015, gradPerf: 'Excellent', postgrad: true, workBefore: true, workEx: '1-3 years' },
+        ];
+
+        const departments = ['HR', 'Accounts', 'Operations', 'Technology'];
+
+
+        let editIndex = -1;
+        let myemployee = {};
+
+        let isCardView = false;
+        let detailIndex = null;
+
+        show();
+
+        function show(active = 1) {
+            let str = makeNavbar(active);
+            active === 1 ? str += showEmployeeTable() : str += '';
+            active === 2 ? str += showEmployeeForm() : str += '';
+            active === 3 ? str += showDepartments() : str += '';
+            active === 4 ? str += showDeptForm() : str += '';
+            document.getElementById('show').innerHTML = str;
+        }
+
+        function showEmployees() {
+            editIndex = -1;
+            myemployee = {};
+            isCardView = false;
+            detailIndex = null;
+            show(1);
+        }
+        function addEmployeePage() { show(2); }
+        function showDepartmentPage() { show(3); }
+        function addDeptPage() { show(4); }
+
+        function sort(colNo) {
+            switch (colNo) {
+                case 0: employees.sort((e1, e2) => e1.name.localeCompare(e2.name)); break;
+                case 1: employees.sort((e1, e2) => e1.email.localeCompare(e2.email)); break;
+                case 2: employees.sort((e1, e2) => (+e1.age) - (+e2.age)); break;
+                case 3: employees.sort((e1, e2) => e1.dept.localeCompare(e2.dept)); break;
+                case 4: employees.sort((e1, e2) => e1.gradCourse.localeCompare(e2.gradCourse)); break;
+                case 5: employees.sort((e1, e2) => e1.workEx.localeCompare(e2.workEx)); break;
+            }
+            show(1);
+        }
+
+
+        function deleteEmployee(index) {
+            employees.splice(index, 1);
+            showEmployees();
+        }
+
+
+        function editEmployee(index) {
+            editIndex = index;
+            myemployee = employees[index];
+            addEmployeePage();
+        }
+
+        function showEmployeeTable() {
+            if (isCardView) return showCardView();
+
+            const arr = employees.map((emp, index) => {
+                let str = '<div class="row border">';
+                str += '<div class="col p-2">' + emp.name + '</div>';
+                str += '<div class="col p-2">' + emp.email + '</div>';
+                str += '<div class="col p-2">' + emp.age + '</div>';
+                str += '<div class="col p-2">' + emp.dept + '</div>';
+                str += '<div class="col p-2">' + emp.gradCourse + '</div>';
+                str += '<div class="col p-2">' + emp.workEx + '</div>';
+                // Task 2.1 - Font Awesome 3 icons
+                str += '<div class="col p-2">';
+                str += '<i class="fas fa-edit text-primary mr-2" style="cursor:pointer" onclick="editEmployee(' + index + ')" title="Edit"></i>';
+                str += '<i class="fas fa-trash text-danger mr-2" style="cursor:pointer" onclick="deleteEmployee(' + index + ')" title="Delete"></i>';
+                str += '<i class="fas fa-car text-success" style="cursor:pointer" title="Show Expenses"></i>';
+                str += '</div>';
+                str += '</div>';
+                return str;
+            });
+
+            let table = '<h3 class="text-center mb-3">List of Persons</h3>';
+            table += '<div class="row bg-dark text-white font-weight-bold">';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(0)">Name</div>';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(1)">Email</div>';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(2)">Age</div>';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(3)">Dept</div>';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(4)">Graduation</div>';
+            table += '<div class="col p-2" style="cursor:pointer" onclick="sort(5)">Work Exp</div>';
+            table += '<div class="col p-2"></div>';
+            table += '</div>';
+            table += arr.join('');
+            table += '<button class="btn btn-primary mt-3" onclick="changeView()">Change View</button>';
+            return table;
+        }
+
+
+        function showEmployeeForm() {
+            let name = myemployee.name || '';
+            let email = myemployee.email || '';
+            let age = myemployee.age || '';
+            let dept = myemployee.dept || '';
+            let gradCourse = myemployee.gradCourse || '';
+            let gradYear = myemployee.gradYear || '';
+            let gradPerf = myemployee.gradPerf || '';
+            let postgrad = myemployee.postgrad || false;
+            let workBefore = myemployee.workBefore || false;
+            let workEx = myemployee.workEx || '';
+
+
+            let title = editIndex >= 0 ? 'Edit Employee Details' : 'Add a New Employee';
+            let str = '<h3 class="text-center mb-3">' + title + '</h3>';
+
+            str += makeTextField('empName', 'Employee Name', 'Enter the Employee Name', name, '');
+            str += makeTextField('email', 'Email', 'Enter the Email id', email, '');
+            str += makeTextField('age', 'Age', 'Enter the Age', age, '');
+
+            str += '<div class="form-group">';
+            str += '<label>Department</label>';
+            str += '<select class="form-control" id="dept">';
+            str += '<option value="" ' + (dept ? '' : 'selected') + ' disabled>Select the Department</option>';
+            departments.forEach(d => {
+                let sel = d === dept ? 'selected' : '';
+                str += '<option ' + sel + '>' + d + '</option>';
+            });
+            str += '</select>';
+            str += '</div>';
+
+            str += makeTextField('grad', 'Graduation Degree', 'What degree did you get in graduation', gradCourse, '');
+
+            str += '<div class="form-group">';
+            str += '<label>Graduation Year</label>';
+            str += '<select class="form-control" id="gradYear">';
+            str += '<option value="" disabled ' + (gradYear ? '' : 'selected') + '>Select the Graduation Year</option>';
+            for (let y = 2000; y <= 2020; y++) {
+                let sel = (+gradYear === y) ? 'selected' : '';
+                str += '<option ' + sel + '>' + y + '</option>';
+            }
+            str += '</select>';
+            str += '</div>';
+
+            str += '<div class="form-group">';
+            str += '<label>Overall Grade in Graduation</label>';
+            str += '<div>';
+            let grades = [{ label: 'A', value: 'Excellent' }, { label: 'B', value: 'Good' }, { label: 'C', value: 'Average' }, { label: 'D', value: 'Poor' }];
+            grades.forEach(g => {
+                let chk = gradPerf === g.value ? 'checked' : '';
+                str += '<input type="radio" name="grade" value="' + g.value + '" ' + chk + '> ' + g.label + ' &nbsp;';
+            });
+            str += '</div>';
+            str += '</div>';
+
+            str += '<div class="form-check mb-2">';
+            str += '<input type="checkbox" class="form-check-input" id="postgrad" ' + (postgrad ? 'checked' : '') + ' >';
+            str += '<label class="form-check-label" for="postgrad">Are you a post graduate</label>';
+            str += '</div>';
+
+            str += '<div class="form-check mb-2">';
+            str += '<input type="checkbox" class="form-check-input" id="priorWork" ' + (workBefore ? 'checked' : '') + ' >';
+            str += '<label class="form-check-label" for="priorWork">Do you have prior work experience</label>';
+            str += '</div>';
+
+            str += '<div class="form-group">';
+            str += '<label>Years of Work Experience</label>';
+            str += '<div>';
+            ['None', '0-1 year', '1-3 years', '3+ years'].forEach(w => {
+                let chk = workEx === w ? 'checked' : '';
+                str += '<input type="radio" name="workyr" value="' + w + '" ' + chk + '> ' + w + ' &nbsp;';
+            });
+            str += '</div>';
+            str += '</div>';
+
+            str += '<button class="btn btn-primary" onclick="submitEmployee()">Submit</button>';
+            return str;
+        }
+
+        function submitEmployee() {
+            let name = document.getElementById('empName').value;
+            let email = document.getElementById('email').value;
+            let age = document.getElementById('age').value;
+            let dept = document.getElementById('dept').value;
+            let gradCourse = document.getElementById('grad').value;
+            let gradYear = document.getElementById('gradYear').value;
+            let gradeEl = document.querySelector('input[name="grade"]:checked');
+            let postgrad = document.getElementById('postgrad').checked;
+            let workBefore = document.getElementById('priorWork').checked;
+            let workEl = document.querySelector('input[name="workyr"]:checked');
+
+            let emp = {
+                name: name,
+                email: email,
+                age: age,
+                dept: dept,
+                gradCourse: gradCourse,
+                gradYear: gradYear,
+                gradPerf: gradeEl ? gradeEl.value : '',
+                postgrad: postgrad,
+                workBefore: workBefore,
+                workEx: workEl ? workEl.value : ''
+            };
+
+            editIndex >= 0 ? employees[editIndex] = emp : employees.push(emp);
+            showEmployees();
+        }
+
+        function changeView() {
+            isCardView = true;
+            detailIndex = null;
+            show(1);
+        }
+
+        function showCardView() {
+            let str = '<h3 class="text-center mb-3">List of Persons</h3>';
+            str += '<div class="row">';
+            employees.forEach((emp, i) => {
+                str += '<div class="col-3 border p-2 mb-2">';
+                str += '<div><b class="text-danger">Name :</b> ' + emp.name + '</div>';
+                str += '<div><b class="text-danger">Email :</b> ' + emp.email + '</div>';
+                str += '<div><b class="text-danger">Age :</b> ' + emp.age + '</div>';
+                str += '<div><b class="text-danger">Dept :</b> ' + emp.dept + '</div>';
+                if (detailIndex === i) {
+                    str += '<div><b class="text-danger">Graduation :</b> ' + emp.gradCourse + '</div>';
+                    str += '<div><b class="text-danger">Year of Graduation :</b> ' + emp.gradYear + '</div>';
+                    str += '<div><b class="text-danger">Performance in Graduation :</b> ' + emp.gradPerf + '</div>';
+                    str += '<div><b class="text-danger">Post Graduate :</b> ' + emp.postgrad + '</div>';
+                    str += '<div><b class="text-danger">Worked Before :</b> ' + emp.workBefore + '</div>';
+                    str += '<div><b class="text-danger">Work Experience :</b> ' + emp.workEx + '</div>';
+                }
+                str += '<button class="btn btn-success btn-sm mt-2" onclick="showMoreDetails(' + i + ')">More Details</button>';
+                str += '</div>';
+            });
+            str += '</div>';
+            str += '<button class="btn btn-secondary mt-3" onclick="showEmployees()">Original View</button>';
+            return str;
+        }
+
+        function showMoreDetails(index) {
+            isCardView = true;
+            detailIndex = detailIndex === index ? null : index;
+            show(1);
+        }
+
+        function showDepartments() {
+            if (departments.length === 0) return '<h5>No department has been defined</h5>';
+            let str = '<h3 class="text-center mb-3">List of Departments</h3>';
+            str += departments.map(d => '<div class="border p-2">' + d + '</div>').join('');
+            return str;
+        }
+
+        function showDeptForm() {
+            let str = makeTextField('deptName', 'Department Name', 'Enter Department Name');
+            str += '<button class="btn btn-primary" onclick="submitDept()">Submit</button>';
+            return str;
+        }
+
+        function submitDept() {
+            let dept = document.getElementById('deptName').value;
+            if (!dept) { alert('Enter a department name.'); return; }
+            departments.push(dept);
+            showDepartmentPage();
+        }
+
+        function makeTextField(id, label, placeholder = '', value = '', err = '') {
+            let str = '<div class="form-group">';
+            str += '<label>' + label + '</label>';
+            str += '<input type="text" class="form-control" id="' + id + '" placeholder="' + placeholder + '" value="' + value + '">';
+            str += err ? '<span class="text-danger">' + err + '</span>' : '';
+            str += '</div>';
+            return str;
+        }
+
+        function makeNavbar(active = 1) {
+            let a1 = active === 1 ? 'active' : '';
+            let a2 = active === 2 ? 'active' : '';
+            let a3 = active === 3 ? 'active' : '';
+            let a4 = active === 4 ? 'active' : '';
+            let str = '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">';
+            str += '<a class="navbar-brand" href="#">Employee System</a>';
+            str += '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">';
+            str += '<span class="navbar-toggler-icon"></span>';
+            str += '</button>';
+            str += '<div class="collapse navbar-collapse show" id="navbarNav">';
+            str += '<ul class="navbar-nav">';
+            str += '<li class="nav-item ' + a1 + '"><a class="nav-link" href="#" onclick="showEmployees()">Show Employees</a></li>';
+            str += '<li class="nav-item ' + a2 + '"><a class="nav-link" href="#" onclick="addEmployeePage()">Add an Employee</a></li>';
+            str += '<li class="nav-item ' + a3 + '"><a class="nav-link" href="#" onclick="showDepartmentPage()">Departments</a></li>';
+            str += '<li class="nav-item ' + a4 + '"><a class="nav-link" href="#" onclick="addDeptPage()">Add a Dept</a></li>';
+            str += '</ul>';
+            str += '</div>';
+            str += '</nav>';
+            return str;
+        }
+
+    </script>
+</body>
+
+</html>
