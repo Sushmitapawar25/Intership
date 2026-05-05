@@ -38,6 +38,31 @@ import Employ8 from './components/RCT-A1-2/Task7/Task7.Ten';
 import Empp1 from './components/RCT-A1-2/Task8/Task8.1';
 import Empp2 from './components/RCT-A1-2/Task8/Task8.2';
 import Empp3 from './components/RCT-A1-2/Task8/Task8.3';
+import MyComp1 from './components/RCT-A1-3/Task1/Task1.1';
+import Mycomp2 from './components/RCT-A1-3/Task1/Task1.2';
+import Mycomp3 from './components/RCT-A1-3/Task1/Task1.3';
+import Mycomp4 from './components/RCT-A1-3/Task1/Task1.4';
+import Baton from './components/RCT-A1-3/Task2/Task2.1';
+import Baton1 from './components/RCT-A1-3/Task2/Task2.2';
+import Append from './components/RCT-A1-3/Task3/Task3.1';
+import Append1 from './components/RCT-A1-3/Task3/Task3.2';
+import Append2 from './components/RCT-A1-3/Task3/Task3.3';
+import BasketBall from './components/RCT-A1-3/Task4/Task4.1';
+import BasketBall1 from './components/RCT-A1-3/Task4/Task4.2';
+import BasketBall2 from './components/RCT-A1-3/Task4/Task4.3';
+import AddNum from './components/RCT-A1-3/Task5/Task5.1';
+import AddNum1 from './components/RCT-A1-3/Task5/Task5.2';
+import SellSold from './components/RCT-A1-3/Task6/Task6.1';
+import SellSold1 from './components/RCT-A1-3/Task6/Task6.2';
+import SellSold2 from './components/RCT-A1-3/Task6/Task6.3';
+import SellSold3 from './components/RCT-A1-3/Task6/Task6.4';
+import SortH from './components/RCT-A1-3/Task7/Task7.1';
+import SortH1 from './components/RCT-A1-3/Task7/Task7.2';
+import FiltH from './components/RCT-A1-3/Task7/Task7.3';
+import PriceD from './components/RCT-A1-3/Task8/Task8.1';
+import Movie from './components/RCT-A1-3/Task9/Task9';
+import CodeApp from './components/RCT-A1-3/Task10/Task10.1';
+import CodeApp1 from './components/RCT-A1-3/Task10/Task10.2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -85,8 +110,36 @@ root.render(
     {/* <Employ8/> */}
 
     {/* <Empp1/> */}
-    <Empp2/>
+    {/* <Empp2/> */}
     {/* <Empp3/> */}
+
+    {/* RCT_A3 */}
+    {/* <MyComp1/> */}
+    {/* <Mycomp2/> */}
+    {/* <Mycomp3/> */}
+    {/* <Mycomp4/> */}
+
+    {/* <Baton/> */}
+    {/* <Baton1/> */}
+    {/* <Append/> */}
+    {/* <Append1/> */}
+    {/* <Append2/> */}
+    {/* <BasketBall/> */}
+    {/* <BasketBall1/> */}
+    {/* <BasketBall2/> */}
+    {/* <AddNum/> */}
+    {/* <AddNum1/> */}
+    {/* <SellSold/> */}
+    {/* <SellSold1/> */}
+    {/* <SellSold2/> */}
+    {/* <SellSold3/> */}
+    {/* <SortH/> */}
+    {/* <SortH1/> */}
+    {/* <FiltH/> */}
+    {/* <PriceD/> */}
+    {/* <Movie/> */}
+    {/* <CodeApp/> */}
+    <CodeApp1/>
   </React.StrictMode>
 );
 
