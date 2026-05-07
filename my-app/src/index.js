@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
+
 import HelloWorld from './components/RCT-A1-2/Task1.1/helloWorld';
 import MyComp from './components/RCT-A1-2/Task1.1/myComp';
 import DefState from './components/RCT-A1-2/Task1.1/defState';
@@ -63,6 +64,24 @@ import PriceD from './components/RCT-A1-3/Task8/Task8.1';
 import Movie from './components/RCT-A1-3/Task9/Task9';
 import CodeApp from './components/RCT-A1-3/Task10/Task10.1';
 import CodeApp1 from './components/RCT-A1-3/Task10/Task10.2';
+import CountingMachine from './components/RCT-A1-4/Task1/Task1.1/CountingMachine';
+import PhotoPage from './components/RCT-A1-4/Task1/Task1.2/PhotoPage';
+import VisitorSystem from './components/RCT-A1-4/Task1/Task1.3/visitorSystem';
+import PlayerSystem from './components/RCT-A1-4/Task2/Task2.1/playerSystem';
+import PlayerSystem1 from './components/RCT-A1-4/Task2/Task2.2/playerSystem1';
+import PlayerSystem2 from './components/RCT-A1-4/Task2/Task2.3/playerSystem';
+import PlayerSystem3 from './components/RCT-A1-4/Task2/Task2.4/playerSystem';
+import MainComponent from './components/RCT-A1-4/Task3/Maincomp';
+import LibrarySystem from './components/RCT-A1-4/Task4/Task4.1/librarySystem';
+import LibrarySystem1 from './components/RCT-A1-4/Task4/Task4.2/librarySystem';
+import LibrarySystem2 from './components/RCT-A1-4/Task4/Task4.3/librarySystem';
+import Store from './components/RCT-A1-4/Task6/Task6.1/store';
+import Store1 from './components/RCT-A1-4/Task6/Task6.2/store';
+import Store2 from './components/RCT-A1-4/Task6/Task6.3/store';
+import MessagingApp from './components/RCT-A1-4/Task7/Task7.1/messagingApp';
+import MessagingApp1 from './components/RCT-A1-4/Task7/Task7.2/messagingApp';
+import MessagingApp2 from './components/RCT-A1-4/Task7/Task7.3/messagingApp';
+import MobileSystem from './components/RCT-A1-4/Task5/MobileSystem';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -139,7 +158,27 @@ root.render(
     {/* <PriceD/> */}
     {/* <Movie/> */}
     {/* <CodeApp/> */}
-    <CodeApp1/>
+    {/* <CodeApp1/> */}
+    {/* RCT-A1-4 */}
+    {/* <CountingMachine/> */}
+    {/* <PhotoPage/> */}
+    {/* <VisitorSystem/> */}
+    {/* <PlayerSystem/> */}
+     {/* <PlayerSystem1/> */}
+    {/* <PlayerSystem2/> */}
+    {/* <PlayerSystem3/> */}
+    {/* <MainComponent/> */}
+    {/* <LibrarySystem/> */}
+    {/* <LibrarySystem1/> */}
+    {/* <LibrarySystem2/> */}
+    {/* <Store/> */}
+    {/* <Store1/> */}
+     {/* <Store2/> */}
+     {/* <MessagingApp/> */}
+  {/* <MessagingApp1/> */}
+  {/* <MessagingApp2/> */}
+  <MobileSystem/>
+
   </React.StrictMode>
 );
 
