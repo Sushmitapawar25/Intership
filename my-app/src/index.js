@@ -82,6 +82,17 @@ import MessagingApp from './components/RCT-A1-4/Task7/Task7.1/messagingApp';
 import MessagingApp1 from './components/RCT-A1-4/Task7/Task7.2/messagingApp';
 import MessagingApp2 from './components/RCT-A1-4/Task7/Task7.3/messagingApp';
 import MobileSystem from './components/RCT-A1-4/Task5/MobileSystem';
+import SimpleForm from './components/RCT-A1-5/Task1/Task1.1/SimpleForm';
+import MainCOmponent from './components/RCT-A1-5/Task1/Task1.1/MainComponent';
+import MainComponent3 from './components/RCT-A1-5/Task1/Task1.2/MainComponentt';
+import CourseComponent from './components/RCT-A1-5/Task1/Task1.3/courseComponent';
+import SimpleForm1 from './components/RCT-A1-5/Task2/SimpleForm1';
+import CourseSystem from './components/RCT-A1-5/Task3/Task3.1/courseSysteem';
+import CourseSystem1 from './components/RCT-A1-5/Task3/Task3.2/courseSystem1';
+import HomeScreen from './components/RCT-A1-5/Task4/Task4.1/HomeScreen';
+import HomeScreen1 from './components/RCT-A1-5/Task4/Task4.2/HomeScreen1';
+import HomeScreen2 from './components/RCT-A1-5/Task5/Task5.1/Homescreen';
+import HomeScreen3 from './components/RCT-A1-5/Task5/Task5.2/Homescreen1';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -175,10 +186,22 @@ root.render(
     {/* <Store1/> */}
      {/* <Store2/> */}
      {/* <MessagingApp/> */}
-  {/* <MessagingApp1/> */}
-  {/* <MessagingApp2/> */}
-  <MobileSystem/>
+     {/* <MessagingApp1/> */}
+      {/* <MessagingApp2/> */}
+      {/* <MobileSystem/> */}
 
+
+    {/* <SimpleForm/> */}
+    {/* <MainCOmponent/> */}
+    {/* <MainComponent3/> */}
+    {/* <CourseComponent/> */}
+    {/* <SimpleForm1/> */}
+    {/* <CourseSystem/> */}
+    {/* <CourseSystem1/> */}
+    {/* <HomeScreen/> */}
+    {/* <HomeScreen1/> */}
+    {/* <HomeScreen2/> */}
+    <HomeScreen3/>
   </React.StrictMode>
 );
 
