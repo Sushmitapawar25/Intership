@@ -78,3 +78,10 @@ class LeftPanel9 extends Component {
 }
 
 export default LeftPanel9;
+
+/* An app takes the details of a person and displsys them in a
+   table. The details are entered in a form with 3 fields, name, age and country.
+   a) When the submit button is clicked, validate the form
+   Name and age should not be empty and country should have been selected.
+   b) If there are any errors,display them below the fields.
+*/

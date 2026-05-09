@@ -1,0 +1,62 @@
+type User @table {
+  displayName: String!
+  createdAt: Timestamp!
+  email: String
+  photoUrl: String
+  bio: String
+}
+
+type Project @table {
+  title: String!
+  createdAt: Timestamp!
+  status: String!
+  isPublic: Boolean!
+  description: String
+  startDate: Timestamp
+  completionDate: Timestamp
+  user: User
+}
+
+type Update @table {
+  createdAt: Timestamp!
+  content: String!
+  photoUrl: String
+  project: Project
+}
+
+type Comment @table {
+  content: String!
+  createdAt: Timestamp!
+  user: User
+  project: Project
+}
+
+type Tool @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+  user: User
+}
+
+type Material @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+  quantity: Float
+  unit: String
+  user: User
+}
+
+type ProjectTool @table(key: ["project", "tool"]) {
+  addedAt: Timestamp!
+  project: Project!
+  tool: Tool!
+}
+
+type ProjectMaterial @table(key: ["project", "material"]) {
+  addedAt: Timestamp!
+  quantityUsed: Float
+  unitUsed: String
+  project: Project!
+  material: Material!
+}

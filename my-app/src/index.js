@@ -114,6 +114,11 @@ import Task62 from './components/RCT-A1-6/Task6/Task6.2';
 import Task71 from './components/RCT-A1-6/Task7/Task7.1';
 import Task72 from './components/RCT-A1-6/Task7/Task7.2';
 import Task8 from './components/RCT-A1-6/Task8/Task8';
+import MainCOmponent3 from './components/RCT-A1-7/Task1/Task1MainComp';
+import MainCOmponent4 from './components/RCT-A1-7/Task1/Task2MComp';
+import EmployeeForm from './components/RCT-A1-7/Task2/EmployeeForm';
+import EmployeeMain from './components/RCT-A1-7/Task2/EmployeeMain';
+import ProductMain from './components/RCT-A1-7/Task3/ProductMain';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -244,7 +249,11 @@ root.render(
       {/* <Task62/> */}
       {/* <Task71/> */}
       {/* <Task72/> */}
-      <Task8/>
+      {/* <Task8/> */}
+      {/* <MainCOmponent3/> */}
+      {/* <MainCOmponent4/> */}
+      {/* <EmployeeMain/> */}
+      <ProductMain/>
   </React.StrictMode>
 );
 

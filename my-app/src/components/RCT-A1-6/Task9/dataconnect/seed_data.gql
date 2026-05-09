@@ -1,0 +1,70 @@
+mutation CreateSeedData @transaction @auth(level: USER, insecureReason: "Seed data mutations are for development purposes and not exposed to end-users.") {
+  user1: user_insert(data: {
+    id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    displayName: "Alice Smith",
+    email: "alice@example.com",
+    createdAt: "2023-01-01T10:00:00Z"
+  })
+  user2: user_insert(data: {
+    id: "f1e2d3c4-b5a6-0987-6543-210fedcba987",
+    displayName: "Bob Johnson",
+    email: "bob@example.com",
+    createdAt: "2023-01-02T11:00:00Z"
+  })
+  project1: project_insert(data: {
+    id: "11111111-2222-3333-4444-555555555555",
+    title: "Website Redesign",
+    status: "In Progress",
+    isPublic: true,
+    createdAt: "2023-01-10T09:00:00Z",
+    userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  })
+  project2: project_insert(data: {
+    id: "22222222-3333-4444-5555-666666666666",
+    title: "Mobile App Development",
+    status: "Planned",
+    isPublic: false,
+    createdAt: "2023-01-15T14:30:00Z",
+    userId: "f1e2d3c4-b5a6-0987-6543-210fedcba987"
+  })
+  material1: material_insert(data: {
+    id: "33333333-4444-5555-6666-777777777777",
+    name: "Wood Planks",
+    createdAt: "2023-01-05T08:00:00Z",
+    quantity: 100.0,
+    unit: "feet",
+    userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  })
+  tool1: tool_insert(data: {
+    id: "44444444-5555-6666-7777-888888888888",
+    name: "Hammer",
+    createdAt: "2023-01-03T16:00:00Z",
+    description: "Standard claw hammer",
+    userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  })
+  comment1: comment_insert(data: {
+    id: "55555555-6666-7777-8888-999999999999",
+    content: "Initial project discussion",
+    createdAt: "2023-01-11T10:00:00Z",
+    projectId: "11111111-2222-3333-4444-555555555555",
+    userId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  })
+  projectMaterial1: projectMaterial_insert(data: {
+    projectId: "11111111-2222-3333-4444-555555555555",
+    materialId: "33333333-4444-5555-6666-777777777777",
+    addedAt: "2023-01-12T09:00:00Z",
+    quantityUsed: 50.0,
+    unitUsed: "feet"
+  })
+  projectTool1: projectTool_insert(data: {
+    projectId: "11111111-2222-3333-4444-555555555555",
+    toolId: "44444444-5555-6666-7777-888888888888",
+    addedAt: "2023-01-13T11:00:00Z"
+  })
+  update1: update_insert(data: {
+    id: "66666666-7777-8888-9999-000000000000",
+    content: "Prototype for homepage completed.",
+    createdAt: "2023-01-20T17:00:00Z",
+    projectId: "11111111-2222-3333-4444-555555555555"
+  })
+}

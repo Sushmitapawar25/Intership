@@ -1,0 +1,40 @@
+query ListPublicProjects @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only returns public projects.") {
+  projects(where: {isPublic: {eq: true}}) {
+    id
+    title
+    description
+    status
+    createdAt
+    user {
+      displayName
+    }
+  }
+}
+
+mutation CreateMaterial($name: String!, $description: String, $quantity: Float, $unit: String) @auth(level: USER) {
+  material_insert(data: {
+    name: $name,
+    description: $description,
+    quantity: $quantity,
+    unit: $unit,
+    userId_expr: "auth.uid"
+  })
+}
+
+query MyProjects @auth(level: USER) {
+  projects(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    title
+    status
+    createdAt
+    isPublic
+  }
+}
+
+mutation UpdateProjectStatus($projectId: UUID!, $newStatus: String!) @auth(level: USER) {
+  project_update(
+    key: {id: $projectId},
+    data: {status: $newStatus},
+    where: {userId: {eq_expr: "auth.uid"}} # Ensure user can only update their own project
+  )
+}
