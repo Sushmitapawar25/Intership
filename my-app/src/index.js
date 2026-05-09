@@ -93,6 +93,27 @@ import HomeScreen from './components/RCT-A1-5/Task4/Task4.1/HomeScreen';
 import HomeScreen1 from './components/RCT-A1-5/Task4/Task4.2/HomeScreen1';
 import HomeScreen2 from './components/RCT-A1-5/Task5/Task5.1/Homescreen';
 import HomeScreen3 from './components/RCT-A1-5/Task5/Task5.2/Homescreen1';
+import SimpleForm5 from './components/RCT-A1-6/Task1/Task1.1/a)/simpleFormm';
+import Show from './components/RCT-A1-6/Task1/Task1.1/a)/Show';
+import Show1 from './components/RCT-A1-6/Task1/Task1.1/a)/Show1';
+import MainCOmponent1 from './components/RCT-A1-6/Task1/Task1.1/a)/MainComponennt';
+import MComponent from './components/RCT-A1-6/Task1/Task1.1/b)/MainCOmp1';
+import Task12 from './components/RCT-A1-6/Task1/Task1.2/task1.2';
+import Task13 from './components/RCT-A1-6/Task1/Task1.3/task1.3';
+import Task14 from './components/RCT-A1-6/Task1/Task1.4/task1.4';
+import Task15 from './components/RCT-A1-6/Task1/Task1.5/Task1.5';
+import Task2_1 from './components/RCT-A1-6/Task2/Task2_1';
+import Task2_2 from './components/RCT-A1-6/Task2/Task2_2';
+import CountryCityDropdown from './components/RCT-A1-6/Task3/Task3';
+import WorkStudyForm from './components/RCT-A1-6/Task4/Task4.1';
+import WorkStudyForm1 from './components/RCT-A1-6/Task4/Task4.2';
+import WorkStudyRadio from './components/RCT-A1-6/Task5/Task5.1';
+import WorkStudyRadio1 from './components/RCT-A1-6/Task5/Task5.2';
+import Task61 from './components/RCT-A1-6/Task6/Task6.1';
+import Task62 from './components/RCT-A1-6/Task6/Task6.2';
+import Task71 from './components/RCT-A1-6/Task7/Task7.1';
+import Task72 from './components/RCT-A1-6/Task7/Task7.2';
+import Task8 from './components/RCT-A1-6/Task8/Task8';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -201,7 +222,29 @@ root.render(
     {/* <HomeScreen/> */}
     {/* <HomeScreen1/> */}
     {/* <HomeScreen2/> */}
-    <HomeScreen3/>
+    {/* <HomeScreen3/> */}
+
+    {/* <SimpleForm5/> */}
+    {/* <Show/> */}
+    {/* <Show1/> */}
+    {/* <MainCOmponent1/> */}
+    {/* <MComponent/> */}
+    {/* <Task12/> */}
+     {/* <Task13/> */}
+     {/* <Task14/> */}
+     {/* <Task15/> */}
+     {/* <Task2_1/> */}
+      {/* <Task2_2/> */}
+      {/* <CountryCityDropdown/> */}
+      {/* <WorkStudyForm/> */}
+      {/* <WorkStudyForm1/> */}
+      {/* <WorkStudyRadio/> */}
+      {/* <WorkStudyRadio1/> */}
+      {/* <Task61/> */}
+      {/* <Task62/> */}
+      {/* <Task71/> */}
+      {/* <Task72/> */}
+      <Task8/>
   </React.StrictMode>
 );
 

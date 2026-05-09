@@ -1,0 +1,88 @@
+[debug] [2026-05-09T07:33:39.599Z] ----------------------------------------------------------------------
+[debug] [2026-05-09T07:33:39.601Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-05-09T07:33:39.601Z] CLI Version:   15.17.0
+[debug] [2026-05-09T07:33:39.602Z] Platform:      win32
+[debug] [2026-05-09T07:33:39.602Z] Node Version:  v24.11.1
+[debug] [2026-05-09T07:33:39.602Z] Time:          Sat May 09 2026 13:03:39 GMT+0530 (India Standard Time)
+[debug] [2026-05-09T07:33:39.602Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Internship\my-app\src\components\RCT-A1-6\Task9
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-05-09T07:34:07.831Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-09T07:34:07.831Z] > authorizing via signed-in user (pawarsushmita2516@gmail.com)
+[debug] [2026-05-09T07:34:07.833Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:07.833Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:07.834Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2026-05-09T07:34:08.556Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-05-09T07:34:08.557Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] 
+=== Dataconnect Setup
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[debug] [2026-05-09T07:34:20.178Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:20.178Z] Checked if tokens are valid: true, expires at: 1778315579929
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-05-09T07:34:20.178Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:20.179Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:20.179Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-05-09T07:34:20.179Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com  x-goog-user-project=rct-int
+[debug] [2026-05-09T07:34:20.181Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com [none]
+[debug] [2026-05-09T07:34:20.181Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com  x-goog-user-project=rct-int
+[debug] [2026-05-09T07:34:21.995Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com 200
+[debug] [2026-05-09T07:34:21.995Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2026-05-09T07:34:21.996Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:21.996Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:21.996Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com:enable [none]
+[debug] [2026-05-09T07:34:21.996Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com:enable  x-goog-user-project=rct-int
+[debug] [2026-05-09T07:34:21.998Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-05-09T07:34:21.998Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API firebasedataconnect.googleapis.com. Enabling now... 
+[debug] [2026-05-09T07:34:21.998Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:21.998Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:21.998Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com:enable [none]
+[debug] [2026-05-09T07:34:21.998Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com:enable  x-goog-user-project=rct-int
+[debug] [2026-05-09T07:34:22.467Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com:enable 200
+[debug] [2026-05-09T07:34:22.467Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2026-05-09T07:34:23.827Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com:enable 200
+[debug] [2026-05-09T07:34:23.827Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rct-int/services/firebasedataconnect.googleapis.com:enable [omitted]
+[debug] [2026-05-09T07:34:33.838Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:33.838Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:33.838Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/rct-int/locations/-/services [none]
+[debug] [2026-05-09T07:34:35.905Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/rct-int/locations/-/services 200
+[debug] [2026-05-09T07:34:35.905Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/rct-int/locations/-/services {}
+[info] i  : ensuring required API cloudaicompanion.googleapis.com is enabled... 
+[debug] [2026-05-09T07:34:38.867Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:38.867Z] Checked if tokens are valid: true, expires at: 1778315579929
+[debug] [2026-05-09T07:34:38.867Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/cloudaicompanion.googleapis.com [none]
+[debug] [2026-05-09T07:34:38.867Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/cloudaicompanion.googleapis.com  x-goog-user-project=rct-int
+[debug] [2026-05-09T07:34:40.766Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/cloudaicompanion.googleapis.com 200
+[debug] [2026-05-09T07:34:40.766Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rct-int/services/cloudaicompanion.googleapis.com [omitted]
+[info] +  : required API cloudaicompanion.googleapis.com is enabled 
+[debug] [2026-05-09T07:37:59.685Z] ExitPromptError: User force closed the prompt with SIGINT
+    at Interface.sigint (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\@inquirer\core\dist\commonjs\lib\create-prompt.js:101:37)
+    at Interface.emit (node:events:508:28)
+    at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1317:18)
+    at ReadStream.onkeypress (node:internal/readline/interface:284:20)
+    at ReadStream.emit (node:events:520:35)
+    at emitKeys (node:internal/readline/utils:371:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+    at ReadStream.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+[error] 
+[error] Error: An unexpected error has occurred.
