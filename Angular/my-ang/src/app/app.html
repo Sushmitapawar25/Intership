@@ -1,0 +1,33 @@
+<!-- FUNCTION CALL ON BUTTON -->
+
+<h1 style="text-align: center;">Counter App</h1>
+
+<div style="text-align:center;">
+  <h2 class="count">{{count}}</h2>
+  <div>
+    <button class="btn bg-red" (click)="handleCounter('minus')">Decrement</button>
+    <button class="btn bg-black" (click)="handleCounter('reset')">Reset</button>
+    <button class="btn bg-green" (click)="handleCounter('plus')">Increment</button>
+  </div>
+</div>
+
+<!-- EVENTS IN ANGULAR -->
+
+<!-- <h1>Event in Angular</h1>
+<button class="btn" name="login" (click)="handleEvent($event)">Click Event</button>
+<br>
+<br>
+
+<div (mouseenter)="handleEvent($event)" 
+      style="background-color: green; width:100px; height:100px;">
+</div>
+
+<div (mouseleave)="handleEvent($event)" 
+      style="background-color: blue; width:100px; height:100px;">
+</div>
+
+<br><br>
+<input type = "text" (input)="handleEvent($event)" 
+                     (focus)="handleEvent($event)"
+                     (blur)="handleEvent($event)"
+                     name="user"> -->
